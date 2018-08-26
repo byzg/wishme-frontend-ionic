@@ -1,0 +1,11 @@
+{
+  "pages": {
+    "login": {
+      "submit": "ВОЙТИ",
+      "placeholders": {
+        "email": "Email",
+        "password": "Пароль"
+      }
+    }
+  }
+}
