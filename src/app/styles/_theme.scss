@@ -1,0 +1,56 @@
+.primary-bg {
+  background-color: color($colors, primary) !important;
+}
+
+.secondary-bg {
+  background-color: color($colors, secondary) !important;
+}
+
+.common-bg {
+  background-color: #FAFBFC;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.detail-bg {
+  background-color: #f1f1f5;
+}
+
+.light-bg {
+  background-color: color($colors, light);
+}
+
+.dark-bg {
+  background-color: color($colors, dark);
+}
+
+.green-bg {
+  background-color: #68C91F;
+}
+
+.profile-bg {
+  background-image: linear-gradient(135deg, color($colors, dark), color($colors, primary), color($colors, light));
+}
+//
+//
+.text-primary {
+  color: color($colors, primary);
+}
+
+.text-secondary {
+  color: color($colors, secondary);
+}
+
+.text-green {
+  color: #68C91F;
+}
+
+.text-yellow {
+  color: #FDD835;
+}
+
+.text-white {
+  color: #fff;
+}

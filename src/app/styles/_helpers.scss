@@ -1,0 +1,139 @@
+// Helpers
+.quarter-op {
+  opacity: .25;
+}
+
+.no-paddingTRL {
+  padding-top: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.no-paddingTRB {
+  padding-top: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.no-paddingB {
+  padding-bottom: 0 !important;
+}
+
+.no-paddingT {
+  padding-top: 0 !important;
+}
+
+.padding-xs {
+  padding: 10px;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-pl {
+  padding-left: 0 !important;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-marginT {
+  margin-top: 0 !important;
+}
+
+.mt-half {
+  margin-top: .5rem !important;
+}
+
+.mt-1 {
+  margin-top: 1rem !important;
+}
+
+.mb-half {
+  margin-bottom: .5rem;
+}
+
+.marginB-16px {
+  margin-bottom: 16px !important;
+}
+
+.marginB-2 {
+  margin-bottom: 2rem !important;
+}
+
+.marginT-16px {
+  margin-top: 16px !important;
+}
+
+.marginT-2 {
+  margin-top: 2rem !important;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.rlt {
+  position: relative;
+}
+
+.clear {
+  clear: both;
+}
+
+.align-bottom {
+  position: absolute;
+  bottom: 0;
+}
+
+.round {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.no-round {
+  border-radius: 0;
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgba(86, 61, 124, 0.1);
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.max-width {
+  max-width: 100% !important;
+}
+
+.padding-sm {
+  padding: 1rem;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+// text size
+.text-2x {
+  font-size: 2em;
+}
+
+.text-1x {
+  font-size: 1em;
+}
+
+.text-sm {
+  font-size: 0.7em;
+}
+
+.bold {
+  font-weight: bold !important;
+}

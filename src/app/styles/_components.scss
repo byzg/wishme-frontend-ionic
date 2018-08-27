@@ -1,0 +1,156 @@
+.dark-trans,
+.toast-md .toast-wrapper {
+  background-color: rgba(0, 0, 0, .4);
+}
+
+// buttons configs
+.btn-facebook {
+  background-color: #3B5999;
+}
+
+.btn-twitter {
+  background-color: #00ACEE;
+}
+
+.btn-gplus {
+  background-color: #E04006
+}
+
+// badge style
+ion-badge {
+  &.square {
+    border-radius: 0;
+  }
+}
+
+// card style
+.card {
+  background: #FFF;
+  border-radius: 1rem;
+  box-shadow: 0 0 1px rgba(86, 61, 124, 0.2), 0 2px 4px rgba(86, 61, 124, 0.15);
+}
+
+// navbar style
+ion-navbar.no-border {
+
+  .toolbar-background {
+    border: none;
+  }
+}
+
+// list style
+.list-no-border {
+
+  .item:first-child {
+    border: none;
+  }
+  .item:last-child {
+    border: none;
+  }
+
+  .item {
+    .item-inner {
+      border: none;
+    }
+  }
+}
+
+.list-full-border {
+  @extend .list-no-border;
+
+  .item,
+  .item:first-child,
+  .item:last-child {
+    border-bottom: 1px solid rgba(86, 61, 124, 0.2);
+    .item-inner {
+      border: none;
+    }
+  }
+}
+
+// item style
+.item.no-border {
+  .item-inner {
+    border: none;
+  }
+}
+
+// Toolbar
+// transparent nav bar
+.toolbar {
+  &.nav-transparent {
+    .toolbar-background {
+      background-color: rgba(86, 61, 124, .65);
+    }
+  }
+  .toolbar-title {
+    img {
+      vertical-align: sub;
+      border-radius: 10%;
+    }
+  }
+}
+
+// style for slider
+ion-slides.to-top {
+  height: auto;
+  margin-bottom: -5px;
+
+  .swiper-pagination {
+    display: block !important;
+
+    .swiper-pagination-bullet {
+      background: color($colors, light);
+    }
+  }
+}
+
+.to-top {
+  height: auto;
+  margin-bottom: -5px;
+}
+
+// style for ion-icon
+ion-icon[ng-reflect-disabled="true"] {
+  color: #FAFBFC;
+  pointer-events: none;
+}
+
+// checkout info style
+.checkout-info {
+
+  span {
+    font-size: 1.2rem;
+  }
+}
+
+// remove shadow from header
+.md {
+  ion-header {
+    &.no-shadow::after {
+      background-image: none;
+    }
+  }
+
+  ion-toolbar,
+  ion-navbar {
+    .button,
+    .button.activated {
+      box-shadow: none;
+    }
+  }
+}
+
+.ios {
+  ion-list ion-item,
+  .list-hotels .hotel-bg {
+    pointer-events: none;
+  }
+}
+
+// google
+.google-map {
+  height: 160px;
+  pointer-events: none;
+  margin: 0 -20px;
+}

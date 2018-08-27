@@ -1,6 +1,8 @@
 {
   "name": "wishme-frontend-ionic",
   "version": "0.0.1",
+  "repository": "https://github.com/byzg/wishme-frontend-ionic",
+  "license": "MIT",
   "author": {
     "name": "Artem Byzgaev",
     "github": "https://github.com/byzg"
@@ -53,7 +55,6 @@
     "ionic": "^4.1.1",
     "typescript": "^3.0.1"
   },
-  "description": "Ionic 3 Start Theme",
   "cordovaPlugins": [],
   "cordovaPlatforms": [],
   "cordova": {

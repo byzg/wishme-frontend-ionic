@@ -5,32 +5,32 @@
     <!-- Logo -->
     <div padding-horizontal text-center class="animated fadeInDown">
       <div class="logo"></div>
-      <h2 ion-text class="text-primary">
-        <strong>Ionic 3</strong> Start Theme
-      </h2>
     </div>
 
     <!-- Login form -->
-    <form class="list-form">
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="mail" item-start class="text-primary"></ion-icon>
-          {{ '.placeholders.email' | t:path }}
-        </ion-label>
-        <ion-input type="email"></ion-input>
-      </ion-item>
+    <form [formGroup]="sessionForm.group" [hidden]="!sessionForm" class="list-form">
+      <fieldset formGroupName="user">
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="mail" item-start class="text-primary"></ion-icon>
+            {{ '.placeholders.email' | t:path }}
+          </ion-label>
+          <ion-input type="email" formControlName="email" required></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="lock" item-start class="text-primary"></ion-icon>
-          {{ '.placeholders.password' | t:path }}
-        </ion-label>
-        <ion-input type="password"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+            {{ '.placeholders.password' | t:path }}
+          </ion-label>
+          <ion-input type="password" formControlName="password" required></ion-input>
+        </ion-item>
+      </fieldset>
     </form>
 
     <div>
-      <button ion-button icon-start block color="dark" tappable (click)="login()">
+      <button ion-button icon-start block color="dark" tappable
+              [disabled]="!sessionForm.group.valid" (click)="login()">
         <ion-icon name="log-in"></ion-icon>
         {{ '.submit' | t:path }}
       </button>
