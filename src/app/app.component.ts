@@ -4,6 +4,7 @@ import { Platform, Nav } from "ionic-angular";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
+import { TranslateService } from '@ngx-translate/core';
 
 import { LoginPage } from './pages';
 
@@ -19,13 +20,17 @@ export class AppComponent {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public keyboard: Keyboard
+    public keyboard: Keyboard,
+    private translate: TranslateService
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.translate.setDefaultLang('ru');
+      this.translate.use('ru');
+
       // this.splashScreen.show();
       // this.splashScreen.hide();
 

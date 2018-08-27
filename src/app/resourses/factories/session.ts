@@ -50,7 +50,7 @@ export class Session extends BaseFactory {
     return this._localStorage;
   }
 
-  protected serverData(): Object {
+  protected serverData() {
     return this.user;
   }
 }
