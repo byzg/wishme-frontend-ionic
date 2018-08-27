@@ -36,7 +36,7 @@ export class BaseFactory {
   }
 
   protected serverData() {
-    return _.pick(this, _.filter(Object.getOwnPropertyNames(this), (k) => k[0] !== '_'));
+    return <Object>_.pick(this, _.filter(Object.getOwnPropertyNames(this), (k) => k[0] !== '_'));
   }
 
   protected get restClient(): RestClient {
