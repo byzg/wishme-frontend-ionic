@@ -20,6 +20,8 @@ import { AppComponent } from './app.component';
 import { TPipe } from './pipes';
 import { LoginPage } from './pages';
 
+import { SpinnerComponent } from './components';
+
 export function sessionFactory() {
   return new Session();
 }
@@ -33,6 +35,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     TPipe,
     LoginPage,
+
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

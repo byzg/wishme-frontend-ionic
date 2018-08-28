@@ -7,33 +7,36 @@
       <div class="logo"></div>
     </div>
 
-    <!-- Login form -->
-    <form [formGroup]="sessionForm.group" [hidden]="!sessionForm" class="list-form">
-      <fieldset formGroupName="user">
-        <ion-item>
-          <ion-label floating>
-            <ion-icon name="mail" item-start class="text-primary"></ion-icon>
-            {{ '.placeholders.email' | t:path }}
-          </ion-label>
-          <ion-input type="email" formControlName="email" required></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label floating>
-            <ion-icon name="lock" item-start class="text-primary"></ion-icon>
-            {{ '.placeholders.password' | t:path }}
-          </ion-label>
-          <ion-input type="password" formControlName="password" required></ion-input>
-        </ion-item>
-      </fieldset>
-    </form>
-
     <div>
-      <button ion-button icon-start block color="dark" tappable
-              [disabled]="!sessionForm.group.valid" (click)="login()">
-        <ion-icon name="log-in"></ion-icon>
-        {{ '.submit' | t:path }}
-      </button>
+      <wsm-spinner></wsm-spinner>
+      <form [formGroup]="sessionForm.group" [hidden]="!sessionForm" class="list-form">
+
+        <fieldset formGroupName="user">
+          <ion-item>
+            <ion-label floating>
+              <ion-icon name="mail" item-start class="text-primary"></ion-icon>
+              {{ '.placeholders.email' | t:path }}
+            </ion-label>
+            <ion-input type="email" formControlName="email" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>
+              <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+              {{ '.placeholders.password' | t:path }}
+            </ion-label>
+            <ion-input type="password" formControlName="password" required></ion-input>
+          </ion-item>
+        </fieldset>
+      </form>
+
+      <div>
+        <button ion-button icon-start block color="dark" tappable
+                [disabled]="!sessionForm.group.valid" (click)="login()">
+          <ion-icon name="log-in"></ion-icon>
+          {{ '.submit' | t:path }}
+        </button>
+      </div>
     </div>
 
   </div>
