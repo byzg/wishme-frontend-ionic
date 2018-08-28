@@ -17,9 +17,9 @@ class Request {
   constructor(
     private httpClient: HttpClient,
     private method: string,
-    private path: string,
-    private rawData: Object,
-    private opts: Object,
+    path: string,
+    rawData: Object,
+    opts: Object,
   ) {
     const url = this.url(path, opts['searches']);
     const options = {

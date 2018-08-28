@@ -1,0 +1,35 @@
+.spinner-item-sb-admin {
+  display: inline-block;
+  width: 6px;
+  height: 30px;
+  border-radius: 4px;
+  animation: sb-admin 1s ease-in-out infinite;
+  &:nth-child(1) {
+    background-color: #222;
+    animation-delay: 0s;
+  }
+  &:nth-child(2) {
+    background-color: #222;
+    animation-delay: 0.09s;
+  }
+  &:nth-child(3) {
+    background-color: #222;
+    animation-delay: .18s;
+  }
+  &:nth-child(4) {
+    background-color: #222;
+    animation-delay: .27s;
+  }
+}
+
+@keyframes sb-admin {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1, 2.2);
+  }
+  40% {
+    transform: scale(1);
+  }
+}

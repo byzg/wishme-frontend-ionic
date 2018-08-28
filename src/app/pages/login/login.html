@@ -9,6 +9,7 @@
 
     <!-- Login form -->
     <form [formGroup]="sessionForm.group" [hidden]="!sessionForm" class="list-form">
+      <wsm-spinner></wsm-spinner>
       <fieldset formGroupName="user">
         <ion-item>
           <ion-label floating>

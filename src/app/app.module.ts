@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
+import { IonicModule } from '@ionic/angular';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -20,6 +20,8 @@ import { AppComponent } from './app.component';
 import { TPipe } from './pipes';
 import { LoginPage } from './pages';
 
+import { SpinnerComponent } from './components';
+
 export function sessionFactory() {
   return new Session();
 }
@@ -33,15 +35,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     TPipe,
     LoginPage,
+
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(AppComponent, {
-      scrollPadding: false,
-      scrollAssist: true,
-      autoFocusAssist: false
-    }),
+    IonicModule.forRoot(),
     IonicStorageModule.forRoot({
       name: '__ionic3_start_theme',
         driverOrder: ['indexeddb', 'sqlite', 'websql']
@@ -54,10 +54,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  bootstrap: [IonicApp],
+  bootstrap: [AppComponent],
   entryComponents: [
     AppComponent,
-    LoginPage
+    LoginPage,
   ],
   providers: [
     StatusBar,

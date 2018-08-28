@@ -23,7 +23,8 @@ export class LoginPage {
   }
 
   login() {
-    // this.sessionForm.save().then(() => this.nav.setRoot(HomePage));
+    this.sessionForm.save()
+    // .then(() => this.nav.setRoot(HomePage));
   }
 
 }
