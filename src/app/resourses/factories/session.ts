@@ -13,6 +13,7 @@ export class Session extends BaseFactory {
   user: User = new User(this.localStorage.pull());
   protected readonly _name: string = 'session';
   private _localStorage: LocalStorage;
+  errors: string[] = [];
 
   constructor(data: Object = {}) {
     super(data);
@@ -21,8 +22,8 @@ export class Session extends BaseFactory {
     });
   }
 
-  isLoggedIn(): boolean {
-    return true;
+  get isLoggedIn(): boolean {
+    return false;
     // const token: string = Cookies.get(tokenKey);
     // return token && token.length > 0;
   }

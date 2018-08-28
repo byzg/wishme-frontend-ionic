@@ -18,7 +18,7 @@ import { Session } from './resourses/factories';
 
 import { AppComponent } from './app.component';
 import { TPipe } from './pipes';
-import { LoginPage } from './pages';
+import { LoginPage, WishesPage } from './pages';
 
 import { SpinnerComponent } from './components';
 
@@ -35,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     TPipe,
     LoginPage,
+    WishesPage,
 
     SpinnerComponent,
   ],
@@ -61,7 +62,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
-    LoginPage
+    LoginPage,
+    WishesPage
   ],
   providers: [
     StatusBar,

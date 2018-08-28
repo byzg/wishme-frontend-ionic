@@ -1,9 +1,10 @@
 import { Component} from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
+import { NavController, MenuController, ToastController } from 'ionic-angular';
 
 import { SessionForm } from '../../forms';
 import { Session } from '../../resourses/factories';
 import { BaseCollection } from '../../resourses/collections';
+import { WishesPage } from '../wishes/wishes';
 
 @Component({
   selector: 'page-login',
@@ -17,6 +18,7 @@ export class LoginPage {
     public nav: NavController,
     public menu: MenuController,
     public session: Session,
+    private toastCtrl: ToastController
   ) {
     this.menu.swipeEnable(false);
     this.sessionForm = new SessionForm(this.session, new BaseCollection<Session>());
@@ -24,7 +26,17 @@ export class LoginPage {
 
   login() {
     this.sessionForm.save()
-    // .then(() => this.nav.setRoot(HomePage));
+      .then(() => {
+        if (this.session.isLoggedIn) {
+          this.nav.setRoot(WishesPage)
+        } else {
+          this.toastCtrl.create({
+            showCloseButton: true,
+            message: this.session.errors.join('\n'),
+            position: 'bottom'
+          }).present();
+        }
+      })
   }
 
 }
