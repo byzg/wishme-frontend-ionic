@@ -15,6 +15,7 @@ import {
   Spinner,
 } from './services';
 import { Session } from './resourses/factories';
+import { Wishes } from './resourses/collections';
 
 import { AppComponent } from './app.component';
 import { TPipe } from './pipes';
@@ -76,6 +77,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     },
     HttpHelper,
     Spinner,
+
+    Wishes,
   ]
 })
 

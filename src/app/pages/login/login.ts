@@ -31,9 +31,10 @@ export class LoginPage {
           this.nav.setRoot(WishesPage)
         } else {
           this.toastCtrl.create({
-            showCloseButton: true,
+            showCloseButton: false,
             message: this.session.errors.join('\n'),
-            position: 'bottom'
+            position: 'bottom',
+            duration: 7000
           }).present();
         }
       })

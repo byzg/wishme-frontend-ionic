@@ -25,7 +25,8 @@ class Request {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
-      })
+      }),
+      observe: 'response'
     };
     const data = humps.decamelizeKeys(rawData);
     this.httpArgs = _.compact([url, data, options]);
@@ -38,7 +39,7 @@ class Request {
 
   response(): Promise<any> {
     return this.run().observableResponse.map(res => humps.camelizeKeys(res))
-      .toPromise();
+      .toPromise()
   }
 
   getResponse(): Promise<any> {
