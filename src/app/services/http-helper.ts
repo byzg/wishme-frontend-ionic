@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
 import humps from 'humps';
 import qs from 'qs';
 import * as _ from 'lodash';
 
-import { Spinner } from './spinner';
 import { environment } from '../../environments/environment';
+import { ResponseHandler } from "./response-handler";
 
 class Request {
   private httpArgs: any[];
-  private observableResponse: Observable<HttpResponse<any>>;
 
   constructor(
     private httpClient: HttpClient,
@@ -26,23 +23,18 @@ class Request {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
-      observe: 'response'
+      // uncoment it to get FULL response with HEADERS
+      // observe: 'response'
     };
     const data = humps.decamelizeKeys(rawData);
     this.httpArgs = _.compact([url, data, options]);
   }
 
-  run(): Request {
-    this.observableResponse = this.httpClient[this.method](...this.httpArgs);
-    return this;
+  response(): Observable<HttpResponse<any>> {
+    return this.httpClient[this.method](...this.httpArgs)
   }
 
-  response(): Promise<any> {
-    return this.run().observableResponse.map(res => humps.camelizeKeys(res))
-      .toPromise()
-  }
-
-  getResponse(): Promise<any> {
+  getResponse(): Observable<HttpResponse<any>> {
     return this.response();
   }
 
@@ -64,7 +56,7 @@ export class HttpHelper {
 
   constructor(
     private httpClient: HttpClient,
-    private spinner: Spinner
+    private responseHandler: ResponseHandler
   ) {
   }
 
@@ -84,15 +76,8 @@ export class HttpHelper {
     return this.request('delete', path, rawData, opts);
   }
 
-  private async request(method, path, rawData, opts = {}): Promise<any> {
+  private request(method, path, rawData, opts = {}): Promise<any> {
     const request = new Request(this.httpClient, method, path, rawData, opts);
-    this.spinner.toggle();
-    try {
-      return await request.getResponse();
-    } catch (reason) {
-      return Promise.reject(reason);
-    } finally {
-      this.spinner.toggle();
-    }
+    return this.responseHandler.wrap(()=> request.getResponse());
   }
 }

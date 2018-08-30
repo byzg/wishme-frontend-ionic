@@ -13,6 +13,7 @@ import {
   ServiceLocator,
   HttpHelper,
   Spinner,
+  ResponseHandler,
 } from './services';
 import { Session } from './resourses/factories';
 import { Wishes } from './resourses/collections';
@@ -77,6 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     },
     HttpHelper,
     Spinner,
+    ResponseHandler,
 
     Wishes,
   ]

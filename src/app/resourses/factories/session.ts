@@ -1,31 +1,28 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-// cimport Cookies from 'js-cookie';
 
 import { BaseFactory } from './base-factory';
 import { User } from './user';
 import { LocalStorage } from '../../services/local-storage';
 
-// const tokenKey = 'Auth-Token';
+interface ReasonError {
+  errors: string[],
+  success: boolean
+}
 
 @Injectable()
-export class Session extends BaseFactory {
+export class Session extends BaseFactory implements ReasonError{
   user: User = new User(this.localStorage.pull());
   protected readonly _name: string = 'session';
   private _localStorage: LocalStorage;
   errors: string[] = [];
+  success: boolean;
 
   constructor(data: Object = {}) {
     super(data);
     Object.assign(this.restClient.urlMap, {
       create: () => 'auth/sign_in',
     });
-  }
-
-  get isLoggedIn(): boolean {
-    return true;
-    // const token: string = Cookies.get(tokenKey);
-    // return token && token.length > 0;
   }
 
   create(): Promise<Session> {
@@ -35,7 +32,10 @@ export class Session extends BaseFactory {
         this.localStorage.push(this.user);
         return this;
       })
-      .catch(reason => _.extend(this, reason.error));
+      .catch(({ error }: { error: ReasonError }) => {
+        _.extend(this, error);
+        return Promise.reject(error)
+      });
   }
 
   destroy() {

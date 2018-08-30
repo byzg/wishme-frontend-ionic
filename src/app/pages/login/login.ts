@@ -27,16 +27,15 @@ export class LoginPage {
   login() {
     this.sessionForm.save()
       .then(() => {
-        if (this.session.isLoggedIn) {
-          this.nav.setRoot(WishesPage)
-        } else {
-          this.toastCtrl.create({
-            showCloseButton: false,
-            message: this.session.errors.join('\n'),
-            position: 'bottom',
-            duration: 7000
-          }).present();
-        }
+        this.nav.setRoot(WishesPage)
+      })
+      .catch(()=> {
+        this.toastCtrl.create({
+          showCloseButton: false,
+          message: this.session.errors.join('\n'),
+          position: 'bottom',
+          duration: 7000
+        }).present();
       })
   }
 

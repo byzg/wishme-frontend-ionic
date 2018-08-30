@@ -21,7 +21,8 @@ export class BaseFactory {
   }
 
   create(): Promise<Object> {
-    return this.restClient.create(this.serverData()).then(record => {
+    return this.restClient.create(this.serverData())
+      .then(record => {
       _.extend(this, record);
       return this;
     });
