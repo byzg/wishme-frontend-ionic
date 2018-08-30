@@ -8,7 +8,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { AngularTokenModule } from 'angular-token';
 
+import { environment } from '../environments/environment';
 import {
   ServiceLocator,
   HttpHelper,
@@ -60,6 +62,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    AngularTokenModule.forRoot({
+      apiBase:                    environment.API_URL,
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -71,6 +76,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     StatusBar,
     SplashScreen,
     Keyboard,
+    AngularTokenModule,
+
     {
       provide: Session,
       useFactory: sessionFactory,
