@@ -24,7 +24,7 @@ import { AppComponent } from './app.component';
 import { TPipe } from './pipes';
 import { LoginPage, WishesPage } from './pages';
 
-import { SpinnerComponent } from './components';
+import { SpinnerComponent, NavbarComponent } from './components';
 
 export function sessionFactory() {
   return new Session();
@@ -42,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WishesPage,
 
     SpinnerComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
