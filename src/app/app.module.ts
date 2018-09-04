@@ -22,7 +22,7 @@ import { Wishes } from './resourses/collections';
 
 import { AppComponent } from './app.component';
 import { TPipe } from './pipes';
-import { LoginPage, WishesPage } from './pages';
+import { LoginPage, WishesPage, WishFormPage } from './pages';
 
 import { SpinnerComponent, NavbarComponent } from './components';
 
@@ -40,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TPipe,
     LoginPage,
     WishesPage,
+    WishFormPage,
 
     SpinnerComponent,
     NavbarComponent,
@@ -71,7 +72,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   entryComponents: [
     AppComponent,
     LoginPage,
-    WishesPage
+    WishesPage,
+    WishFormPage
   ],
   providers: [
     StatusBar,

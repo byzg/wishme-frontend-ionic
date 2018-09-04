@@ -7,3 +7,7 @@ fieldset {
   margin: initial;
   padding: initial;
 }
+
+textarea::placeholder {
+  padding-left: 0;
+}

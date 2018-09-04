@@ -6,6 +6,13 @@
         "email": "Email",
         "password": "Пароль"
       }
+    },
+    "wishes": {
+      "form": {
+        "title": "Название",
+        "text": "Подробности",
+        "price": "Цена"
+      }
     }
   }
 }

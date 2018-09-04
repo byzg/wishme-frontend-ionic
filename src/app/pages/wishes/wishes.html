@@ -1,6 +1,8 @@
-<wsm-navbar></wsm-navbar>
+<ion-header>
+  <wsm-navbar></wsm-navbar>
+</ion-header>
 <ion-content padding class="animated fadeIn common-bg">
-  <ion-fab bottom right>
+  <ion-fab bottom right (click)="goToForm()">
     <button ion-fab>
       <ion-icon name="add"></ion-icon>
     </button>
