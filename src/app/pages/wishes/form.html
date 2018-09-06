@@ -6,7 +6,7 @@
     <form [formGroup]="wishForm.group">
       <ion-item>
         <ion-input
-          autofocus
+          #titleInput
           formControlName="title"
           placeholder="{{ '.title' | t:path }}"
         ></ion-input>

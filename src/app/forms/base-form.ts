@@ -20,6 +20,7 @@ export abstract class BaseForm implements IBaseForm {
     protected collection: BaseCollection<BaseFactory>
   ) {
     this.buildGroup();
+    this._initVals = _.clone(this.group.value);
   }
 
   buildGroup(): FormGroup {
@@ -27,6 +28,7 @@ export abstract class BaseForm implements IBaseForm {
   }
 
   save(): Promise<Object> {
+    if (!this.isChanged) return Promise.resolve(this.model);
     _.extend(this.model, this.group.value);
     const promise = this.model.save();
     if (this.model.isNew()) {
@@ -38,16 +40,16 @@ export abstract class BaseForm implements IBaseForm {
     return promise;
   }
 
-  get initVals(): Object {
-    return {};
-  }
-
   get isNew(): boolean {
     return this.model.isNew();
   }
 
   get isEdit(): boolean {
     return !this.isNew;
+  }
+
+  get isChanged(): boolean {
+    return !_.isEqual(this.group.value, this._initVals);
   }
 
   get type(): string {
