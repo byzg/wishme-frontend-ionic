@@ -1,0 +1,12 @@
+<ion-card (click)="emitEdit()" [ngClass]="{ 'selected': wish.selected }">
+  <ion-card-header *ngIf="wish.title">
+    <b>{{wish.title}}</b>
+  </ion-card-header>
+
+  <ion-card-content *ngIf="wish.text || wish.price">
+    <div *ngIf="wish.text">{{wish.text}}</div>
+    <div *ngIf="wish.price">
+      <b>₽ {{wish.price}}</b>
+    </div>
+  </ion-card-content>
+</ion-card>

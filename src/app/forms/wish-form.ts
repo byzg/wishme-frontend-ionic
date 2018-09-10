@@ -7,10 +7,11 @@ export class WishForm extends BaseForm {
   protected model: Wish;
 
   buildGroup(): FormGroup {
+    const { title, text, price } = this.model;
     this.group = this.formBuilder.group({
-      title: [''],
-      text: [''],
-      price: ['']
+      title,
+      text,
+      price
     });
     return this.group;
   }

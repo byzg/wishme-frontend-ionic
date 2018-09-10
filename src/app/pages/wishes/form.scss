@@ -1,0 +1,11 @@
+.wish-form {
+  ion-item.item .item-inner {
+    box-shadow: none !important;;
+    border: none;
+  }
+
+  input[formcontrolname='title'],
+  input[formcontrolname='price'] {
+    font-weight: bold;
+  }
+}

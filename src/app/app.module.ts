@@ -22,7 +22,7 @@ import { Wishes } from './resourses/collections';
 
 import { AppComponent } from './app.component';
 import { TPipe } from './pipes';
-import { LoginPage, WishesPage, WishFormPage } from './pages';
+import { LoginPage, WishesPage, WishFormPage, WishPartial } from './pages';
 
 import { SpinnerComponent, NavbarComponent } from './components';
 
@@ -41,9 +41,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginPage,
     WishesPage,
     WishFormPage,
+    WishPartial,
 
     SpinnerComponent,
     NavbarComponent,
+  ],
+  entryComponents: [
+    AppComponent,
+    LoginPage,
+    WishesPage,
+    WishFormPage
   ],
   imports: [
     BrowserModule,
@@ -69,12 +76,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    AppComponent,
-    LoginPage,
-    WishesPage,
-    WishFormPage
-  ],
   providers: [
     StatusBar,
     SplashScreen,
