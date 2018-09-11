@@ -2,4 +2,10 @@
   <ion-title>
     <img class="wsm-navbar-brand" src="/assets/img/Brand_Max.png" />
   </ion-title>
+  <ion-buttons end>
+    <button *ngFor="let action of actions"
+            ion-button icon-only (click)="action.handler()">
+      <ion-icon *ngIf="action.isShown()" [name]="action.name"></ion-icon>
+    </button>
+  </ion-buttons>
 </ion-navbar>

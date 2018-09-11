@@ -1,4 +1,7 @@
-<ion-card (click)="emitEdit()" [ngClass]="{ 'selected': wish.selected }">
+<ion-card (click)="handleClick()"
+          (press)="selectMode.toggle(wish)"
+          [ngClass]="{ 'selected': selectMode.isSelected(wish) }"
+>
   <ion-card-header *ngIf="wish.title">
     <b>{{wish.title}}</b>
   </ion-card-header>

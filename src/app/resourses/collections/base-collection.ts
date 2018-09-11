@@ -40,6 +40,10 @@ export class BaseCollection<T> extends Array<T> {
     if (oldResource) _.extend(oldResource, resource); else this.push(resource);
   }
 
+  remove(item: T): void {
+
+  }
+
   protected get restClient(): RestClient {
     if (!this._restClient) this._restClient = new RestClient(this._name);
     return this._restClient;

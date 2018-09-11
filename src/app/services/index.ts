@@ -4,4 +4,6 @@ export * from './rest-client';
 export * from './service-locator';
 export * from './spinner';
 export * from './response-handler';
+export * from './select-mode';
+
 
