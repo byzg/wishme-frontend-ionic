@@ -9,10 +9,13 @@ import { SelectMode } from '../../services';
 })
 export class WishPartial {
   @Input() wish: Wish;
-  @Input() selectMode: boolean;
-  @Input() openForm: SelectMode;
+  @Input() selectMode: SelectMode;
+  @Input() openForm: Function;
 
   handleClick() {
-    if (this.selectMode.enabled) this.selectMode.toggle(this.wish);
+    if (this.selectMode.enabled)
+      this.selectMode.toggle(this.wish)
+    else
+      this.openForm(this.wish);
   }
 }

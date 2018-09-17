@@ -1,10 +1,11 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 
+import { BaseFactory } from '../factories/base-factory';
 import { RestClient } from '../../services/rest-client';
 
 @Injectable()
-export class BaseCollection<T> extends Array<T> {
+export class BaseCollection<T extends BaseFactory> extends Array<T> {
   protected _name: string;
   protected readonly Factory: new (rawDatum: Object) => {};
   protected _restClient: RestClient;
@@ -36,12 +37,14 @@ export class BaseCollection<T> extends Array<T> {
 
   merge(rawDatum: { id: number }): void {
     const resource: T = <T>new this.Factory(rawDatum);
-    const oldResource = this.find(rawDatum.id);
+    const oldResource: T = this.find(rawDatum.id);
     if (oldResource) _.extend(oldResource, resource); else this.push(resource);
   }
 
-  remove(item: T): void {
-
+  destroy(item: T): Promise<any> {
+    return this.restClient.destroy(item.id).then(()=> {
+      this.splice(this.indexOf(item), 1)
+    });
   }
 
   protected get restClient(): RestClient {

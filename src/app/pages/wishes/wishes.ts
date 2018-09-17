@@ -11,13 +11,13 @@ import { Wish } from '../../resourses/factories';
 })
 export class WishesPage {
   path = 'pages.wishes';
-  selectMode: Function;
+  selectMode: SelectMode;
   navbarActions = [
     {
       name: 'trash',
       handler: ()=> {
         this.wishes.map((wish: Wish)=> {
-          if (this.selectMode.isSelected(wish)) this.wishes.remove(wish)
+          if (this.selectMode.isSelected(wish)) this.wishes.destroy(wish)
         })
       },
       isShown: ()=> this.selectMode.enabled
@@ -32,7 +32,7 @@ export class WishesPage {
     this.selectMode = new SelectMode(wishes);
   }
 
-  openForm(wish: Wish | null) {
+  openForm = (wish: Wish | null)=> {
     this.nav.push(WishFormPage, { wish });
   }
 }

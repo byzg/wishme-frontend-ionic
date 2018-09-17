@@ -18,7 +18,7 @@ export class RestClient {
     show: 'get',
     create: 'post',
     update: 'put',
-    destroy: 'delete'
+    destroy: 'destroy'
   };
 
   public urlMap: IUrlMap;
