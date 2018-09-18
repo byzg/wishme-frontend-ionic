@@ -22,7 +22,13 @@ import { Wishes } from './resourses/collections';
 
 import { AppComponent } from './app.component';
 import { TPipe } from './pipes';
-import { LoginPage, WishesPage, WishFormPage, WishPartial } from './pages';
+import {
+  LoginPage,
+  RegisterPage,
+  WishesPage,
+  WishFormPage,
+  WishPartial
+} from './pages';
 
 import { SpinnerComponent, NavbarComponent } from './components';
 
@@ -39,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     TPipe,
     LoginPage,
+    RegisterPage,
     WishesPage,
     WishFormPage,
     WishPartial,
@@ -49,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   entryComponents: [
     AppComponent,
     LoginPage,
+    RegisterPage,
     WishesPage,
     WishFormPage
   ],

@@ -11,7 +11,7 @@ import { WishesPage } from '../wishes/wishes';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  path = 'pages.login';
+  path = 'pages.login'
   sessionForm: SessionForm;
 
   constructor(
@@ -21,7 +21,10 @@ export class LoginPage {
     private toastCtrl: ToastController
   ) {
     this.menu.swipeEnable(false);
-    this.sessionForm = new SessionForm(this.session, new BaseCollection<Session>());
+    this.sessionForm = new SessionForm(
+      this.session,
+      new BaseCollection<Session>()
+    );
   }
 
   login() {

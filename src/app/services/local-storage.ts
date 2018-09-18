@@ -4,7 +4,9 @@ export class LocalStorage {
   constructor(public key: string) {};
 
   push(value: any): void {
-    let forPush: Object = _.isObject(value) ? _.merge(this.pull(), value) : value;
+    let forPush: Object = _.isObject(value) ? _.merge(
+      this.pull(), value
+    ) : value;
     localStorage.setItem(this.key, JSON.stringify(forPush))
   }
 

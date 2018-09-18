@@ -1,4 +1,4 @@
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 import { BaseForm } from './base-form'
 import { Wish } from '../resourses/factories/wish';
