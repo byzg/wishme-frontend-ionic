@@ -39,9 +39,8 @@ export class Session extends BaseFactory implements ReasonError{
   }
 
   destroy() {
+    this.tokenService.signOut().subscribe();
     this.localStorage.remove();
-    this.user = new User();
-    // Cookies.remove(tokenKey);
   }
 
   get localStorage() {

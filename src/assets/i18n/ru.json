@@ -2,6 +2,8 @@
   "pages": {
     "login": {
       "submit": "ВОЙТИ",
+      "isNewHere": "Впервые здесь?",
+      "signUp": "Регистрация",
       "placeholders": {
         "email": "Email",
         "password": "Пароль"

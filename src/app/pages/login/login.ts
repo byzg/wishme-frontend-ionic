@@ -5,13 +5,14 @@ import { SessionForm } from '../../forms';
 import { Session } from '../../resourses/factories';
 import { BaseCollection } from '../../resourses/collections';
 import { WishesPage } from '../wishes/wishes';
+import { RegisterPage } from '../register/register';
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  path = 'pages.login'
+  path = 'pages.login';
   sessionForm: SessionForm;
 
   constructor(
@@ -40,6 +41,10 @@ export class LoginPage {
           duration: 7000
         }).present();
       })
+  }
+
+  register() {
+    this.nav.setRoot(RegisterPage)
   }
 
 }
