@@ -9,6 +9,15 @@
         "password": "Пароль"
       }
     },
+    "register": {
+      "submit": "РЕГИСТРАЦИЯ",
+      "haveAccount": "У меня есть аккаунт",
+      "placeholders": {
+        "name": "Полное имя",
+        "email": "Email",
+        "password": "Пароль"
+      }
+    },
     "wishes": {
       "form": {
         "title": "Название",

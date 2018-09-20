@@ -16,6 +16,7 @@ import {
   HttpHelper,
   Spinner,
   ResponseHandler,
+  ToastService,
 } from './services';
 import { Session } from './resourses/factories';
 import { Wishes } from './resourses/collections';
@@ -81,6 +82,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     AngularTokenModule.forRoot({
       apiBase:                    environment.API_URL,
+      registerAccountPath:        'auth',
     })
   ],
   bootstrap: [IonicApp],
@@ -98,6 +100,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpHelper,
     Spinner,
     ResponseHandler,
+    ToastService,
 
     Wishes,
   ]

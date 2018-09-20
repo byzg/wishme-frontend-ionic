@@ -1,8 +1,9 @@
 import { Component} from '@angular/core';
-import { NavController, MenuController, ToastController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 
 import { SessionForm } from '../../forms';
 import { Session } from '../../resourses/factories';
+import { ToastService } from '../../services';
 import { BaseCollection } from '../../resourses/collections';
 import { WishesPage } from '../wishes/wishes';
 import { RegisterPage } from '../register/register';
@@ -19,7 +20,7 @@ export class LoginPage {
     public nav: NavController,
     public menu: MenuController,
     public session: Session,
-    private toastCtrl: ToastController
+    private toastService: ToastService
   ) {
     this.menu.swipeEnable(false);
     this.sessionForm = new SessionForm(
@@ -34,12 +35,7 @@ export class LoginPage {
         this.nav.setRoot(WishesPage)
       })
       .catch(()=> {
-        this.toastCtrl.create({
-          showCloseButton: false,
-          message: this.session.errors.join('\n'),
-          position: 'bottom',
-          duration: 7000
-        }).present();
+        this.toastService.modelError(this.session)
       })
   }
 
