@@ -17,7 +17,7 @@ export abstract class BaseForm implements IBaseForm {
 
   constructor(
     protected model: BaseFactory,
-    protected collection: BaseCollection<BaseFactory>
+    protected collection: BaseCollection<BaseFactory> = []
   ) {
     this.buildGroup();
     this._initVals = _.clone(this.group.value);

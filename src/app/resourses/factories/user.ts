@@ -12,11 +12,14 @@ export interface ReasonError {
 
 export class User extends BaseFactory {
   protected readonly _name = 'user';
-  attrs: {
-    name: string,
-    email: string,
-    password: string,
+  protected _attrs = {
+    name: '',
+    email: '',
+    password: '',
   };
+  name: string;
+  email: string;
+  password: string;
   errors: string[] = [];
 
   private tokenService: AngularTokenService
@@ -26,7 +29,7 @@ export class User extends BaseFactory {
 
   create(): Promise<User> {
     return this.responseHandler.wrap(()=> (
-      this.tokenService.registerAccount(this.serverData())
+      this.tokenService.registerAccount(this.toServerAttrs)
     )).then(record => {
       _.extend(this, record);
       return this;
@@ -36,8 +39,8 @@ export class User extends BaseFactory {
     });
   }
 
-  protected serverData() {
-    const { name, email, password } = this.attrs;
+  get toServerAttrs() {
+    const { name, email, password } = <User>this.attrs;
     return { name, login: email, password };
   }
 }

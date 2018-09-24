@@ -15,10 +15,10 @@ import {
   ServiceLocator,
   HttpHelper,
   Spinner,
+  Session,
   ResponseHandler,
   ToastService,
 } from './services';
-import { Session } from './resourses/factories';
 import { Wishes } from './resourses/collections';
 
 import { AppComponent } from './app.component';
@@ -32,10 +32,6 @@ import {
 } from './pages';
 
 import { SpinnerComponent, NavbarComponent } from './components';
-
-export function sessionFactory() {
-  return new Session();
-}
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -91,12 +87,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SplashScreen,
     Keyboard,
     AngularTokenModule,
-
-    {
-      provide: Session,
-      useFactory: sessionFactory,
-      deps: []
-    },
+    Session,
     HttpHelper,
     Spinner,
     ResponseHandler,

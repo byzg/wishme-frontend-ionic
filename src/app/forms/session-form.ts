@@ -1,7 +1,7 @@
 import { FormGroup, Validators } from '@angular/forms';
 
 import { BaseForm } from './base-form'
-import { Session } from '../resourses/factories/session';
+import { Session } from '../services';
 
 export class SessionForm extends BaseForm {
   protected model: Session;

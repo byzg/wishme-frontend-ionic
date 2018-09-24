@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { LoginPage } from '../../pages';
-import { Session } from '../../resourses/factories';
+import { Session } from '../../services';
 
 @Component({
   selector: 'wsm-navbar',

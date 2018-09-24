@@ -1,30 +1,32 @@
+import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { AngularTokenService } from 'angular-token';
 
-import { BaseFactory } from './base-factory';
-import { User } from './user';
-import { LocalStorage, ServiceLocator, ResponseHandler } from '../../services';
+import { LocalStorage } from './local-storage';
+import { ResponseHandler } from './response-handler';
+import { User } from '../resourses/factories';
 
-export interface ReasonError {
+interface ReasonError {
   errors: string[],
   success: boolean
 }
 
-export class Session extends BaseFactory implements ReasonError{
-  private tokenService: AngularTokenService
-    = ServiceLocator.get(AngularTokenService);
-  private responseHandler: ResponseHandler
-    = ServiceLocator.get(ResponseHandler);
-
+@Injectable()
+export class Session implements ReasonError{
   user: User = new User(this.localStorage.pull());
   protected readonly _name: string = 'session';
   private _localStorage: LocalStorage;
   errors: string[] = [];
   success: boolean;
 
+  constructor(
+    private tokenService: AngularTokenService,
+    private responseHandler: ResponseHandler
+  ) {}
+
   create(): Promise<Session> {
     return this.responseHandler.wrap(()=> (
-      this.tokenService.signIn(this.serverData())
+      this.tokenService.signIn(this.toServerAttrs)
     )).then(record => {
       _.extend(this, record);
       delete this.user.password;
@@ -48,7 +50,7 @@ export class Session extends BaseFactory implements ReasonError{
     return this._localStorage;
   }
 
-  protected serverData() {
+  get toServerAttrs() {
     const { email, password } = this.user;
     return { login: email, password };
   }

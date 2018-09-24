@@ -2,9 +2,7 @@ import { Component} from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 
 import { SessionForm } from '../../forms';
-import { Session } from '../../resourses/factories';
-import { ToastService } from '../../services';
-import { BaseCollection } from '../../resourses/collections';
+import { Session, ToastService } from '../../services';
 import { WishesPage } from '../wishes/wishes';
 import { RegisterPage } from '../register/register';
 
@@ -23,10 +21,7 @@ export class LoginPage {
     private toastService: ToastService
   ) {
     this.menu.swipeEnable(false);
-    this.sessionForm = new SessionForm(
-      this.session,
-      new BaseCollection<Session>()
-    );
+    this.sessionForm = new SessionForm(this.session);
   }
 
   login() {
