@@ -2,13 +2,14 @@
   <wsm-navbar [actions]="navbarActions"></wsm-navbar>
 </ion-header>
 <ion-content class="animated fadeIn common-bg">
+  <wsm-spinner></wsm-spinner>
   <ion-fab bottom right (click)="openForm()">
     <button ion-fab color="light" >
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
 
-  <h2 *ngIf="!wishes.length" padding>{{'.noWishes' | t:path}}</h2>
+  <h2 *ngIf="wishes.isEmpty" padding>{{'.noWishes' | t:path}}</h2>
   <wsm-wish *ngFor="let wish of wishes"
             [wish]="wish"
             [selectMode]="selectMode"

@@ -149,3 +149,7 @@ ion-icon[ng-reflect-disabled="true"] {
   pointer-events: none;
   margin: 0 -20px;
 }
+
+.toast-message {
+  white-space: pre-wrap;
+}

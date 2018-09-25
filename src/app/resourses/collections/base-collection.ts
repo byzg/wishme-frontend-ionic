@@ -9,6 +9,7 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   protected _name: string;
   protected readonly Factory: new (rawDatum: Object) => {};
   protected _restClient: RestClient;
+  loaded = false;
 
   constructor() {
     super();
@@ -18,6 +19,7 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   index(): Promise<any> {
     return this.restClient.index().then((rawData) => {
       _(rawData).each((rawDatum) => this.merge(rawDatum));
+      this.loaded = true;
     });
   }
 
@@ -45,6 +47,10 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     return this.restClient.destroy(item.id).then(()=> {
       this.splice(this.indexOf(item), 1)
     });
+  }
+
+  get isEmpty(): boolean {
+    return this.loaded && this.length === 0;
   }
 
   protected get restClient(): RestClient {

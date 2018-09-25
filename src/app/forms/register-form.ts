@@ -8,11 +8,9 @@ export class RegisterForm extends BaseForm {
 
   buildGroup(): FormGroup {
     this.group = this.formBuilder.group({
-      user: this.formBuilder.group({
-        name: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required]
-      })
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
     return this.group;
   }

@@ -11,31 +11,29 @@
       <wsm-spinner></wsm-spinner>
 
       <form [formGroup]="registerForm.group" class="list-form">
-        <fieldset formGroupName="user">
-          <ion-item>
-            <ion-label floating>
-              <ion-icon name="person" item-start class="text-primary"></ion-icon>
-              {{ '.placeholders.name' | t:path }}
-            </ion-label>
-            <ion-input formControlName="name"></ion-input>
-          </ion-item>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="person" item-start class="text-primary"></ion-icon>
+            {{ '.placeholders.name' | t:path }}
+          </ion-label>
+          <ion-input formControlName="name"></ion-input>
+        </ion-item>
 
-          <ion-item>
-            <ion-label floating>
-              <ion-icon name="mail" item-start class="text-primary"></ion-icon>
-              {{ '.placeholders.email' | t:path }}
-            </ion-label>
-            <ion-input formControlName="email" type="email"></ion-input>
-          </ion-item>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="mail" item-start class="text-primary"></ion-icon>
+            {{ '.placeholders.email' | t:path }}
+          </ion-label>
+          <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
 
-          <ion-item>
-            <ion-label floating>
-              <ion-icon name="lock" item-start class="text-primary"></ion-icon>
-              {{ '.placeholders.password' | t:path }}
-            </ion-label>
-            <ion-input formControlName="password" type="password"></ion-input>
-          </ion-item>
-        </fieldset>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+            {{ '.placeholders.password' | t:path }}
+          </ion-label>
+          <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
       </form>
 
       <div margin-top>
