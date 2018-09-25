@@ -30,8 +30,8 @@ export class User extends BaseFactory {
   create(): Promise<User> {
     return this.responseHandler.wrap(()=> (
       this.tokenService.registerAccount(this.toServerAttrs)
-    )).then(record => {
-      _.extend(this, record);
+    )).then(attrs => {
+      this.setAttrs(attrs);
       return this;
     }).catch(({ error }: { error: ReasonError }) => {
       this.errors = error.errors.full_messages;
@@ -41,6 +41,6 @@ export class User extends BaseFactory {
 
   get toServerAttrs() {
     const { name, email, password } = <User>this.attrs;
-    return { name, login: email, password };
+    return { name, login: email, password, passwordConfirmation: password };
   }
 }

@@ -8,6 +8,7 @@
     </button>
   </ion-fab>
 
+  <h2 *ngIf="!wishes.length" padding>{{'.noWishes' | t:path}}</h2>
   <wsm-wish *ngFor="let wish of wishes"
             [wish]="wish"
             [selectMode]="selectMode"

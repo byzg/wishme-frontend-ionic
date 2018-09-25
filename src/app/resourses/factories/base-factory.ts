@@ -6,11 +6,15 @@ export class BaseFactory {
   protected readonly _name: string;
   protected _restClient: RestClient;
   protected _attrs: Object;
-  protected dirty = {};
+  protected _dirty = {};
+  id: number;
+  updatedAt: string;
 
   constructor(data: Object = {}) {
-    this.initAttrs();
-    this.setAttrs(data);
+    setTimeout(()=> {
+      this.initAttrs();
+      this.setAttrs(data);
+    });
   }
 
   isNew(): boolean {
@@ -34,13 +38,13 @@ export class BaseFactory {
   }
 
   setAttrs(data): void {
-    _(data).each((attr, val)=> {
-      if (Object.keys(this._attrs).includes(attr)) this[attr] = val
+    _(data).each((val, attr)=> {
+      if (_.has(this._attrs, attr)) this[attr] = val
     })
   }
 
-  get attrs(): Object {
-    return _.pickBy(this._attrs, (attr)=> this.dirty[attr])
+  get attrs() {
+    return _.pickBy(this._attrs, (val, attr)=> this._dirty[attr])
   }
 
   private commonAttrs = ()=> {
@@ -56,12 +60,12 @@ export class BaseFactory {
   }
 
   protected initAttrs(): void {
-    _(this._attrs).extend(this.commonAttrs()).each(attr => {
-      this.dirty[attr] = false;
+    _(this._attrs).extend(this.commonAttrs()).each((val, attr) => {
+      this._dirty[attr] = false;
       Object.defineProperty(this, attr, {
         get: ()=> this.attrs[attr],
         set: (val)=> {
-          this.dirty[attr] = true;
+          this._dirty[attr] = true;
           this._attrs[attr] = val;
         }
       })

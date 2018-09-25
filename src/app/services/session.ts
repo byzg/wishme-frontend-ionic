@@ -1,39 +1,35 @@
 import { Injectable } from '@angular/core';
-import * as _ from 'lodash';
 import { AngularTokenService } from 'angular-token';
 
 import { LocalStorage } from './local-storage';
 import { ResponseHandler } from './response-handler';
 import { User } from '../resourses/factories';
+import { BaseFactory } from '../resourses/factories/base-factory';
 
-interface ReasonError {
-  errors: string[],
-  success: boolean
-}
 
 @Injectable()
-export class Session implements ReasonError{
+export class Session extends BaseFactory{
   user: User = new User(this.localStorage.pull());
   protected readonly _name: string = 'session';
   private _localStorage: LocalStorage;
   errors: string[] = [];
-  success: boolean;
 
   constructor(
     private tokenService: AngularTokenService,
     private responseHandler: ResponseHandler
-  ) {}
+  ) {
+    super()
+  }
 
   create(): Promise<Session> {
     return this.responseHandler.wrap(()=> (
       this.tokenService.signIn(this.toServerAttrs)
     )).then(record => {
-      _.extend(this, record);
       delete this.user.password;
       this.localStorage.push(this.user);
       return this;
-    }).catch(({ error }: { error: ReasonError }) => {
-      _.extend(this, error);
+    }).catch(({ error }: { error: { errors: string[] } }) => {
+      this.errors = error.errors;
       return Promise.reject(error)
     });
   }
