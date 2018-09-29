@@ -6,3 +6,4 @@ ionic cordova build browser --prod
 firebase deploy
 git add .
 git commit -m "deploy"
+git checkout master
