@@ -9,7 +9,10 @@
 
     <div>
       <wsm-spinner></wsm-spinner>
-      <form [formGroup]="sessionForm.group" [hidden]="!sessionForm" class="list-form">
+      <form [formGroup]="sessionForm.group"
+            [hidden]="!sessionForm"
+            class="list-form"
+            autocomplete="off">
 
         <fieldset formGroupName="user">
           <ion-item>

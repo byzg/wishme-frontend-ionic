@@ -79,7 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularTokenModule.forRoot({
       apiBase:                    environment.API_URL,
       registerAccountPath:        'auth',
-    })
+    }),
   ],
   bootstrap: [IonicApp],
   providers: [
