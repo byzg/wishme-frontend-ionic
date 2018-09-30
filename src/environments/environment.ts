@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  API_URL: 'https://wishme-backend.herokuapp.com/api'
+  production: false,
+  API_URL: 'http://localhost:300/api'
 };
