@@ -3,7 +3,6 @@ import { NgModule, Injector } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { Keyboard } from '@ionic-native/keyboard';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AngularTokenModule } from 'angular-token';
@@ -81,7 +80,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [IonicApp],
   providers: [
-    Keyboard,
     AngularTokenModule,
     Session,
     HttpHelper,

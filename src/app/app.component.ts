@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
-import { Keyboard } from '@ionic-native/keyboard';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularTokenService } from 'angular-token';
 
@@ -16,7 +15,6 @@ export class AppComponent {
 
   constructor(
     public platform: Platform,
-    public keyboard: Keyboard,
     private translate: TranslateService,
     private tokenService: AngularTokenService
   ) {
@@ -30,9 +28,17 @@ export class AppComponent {
     this.translate.setDefaultLang('ru');
     this.translate.use('ru');
     this.platform.ready().then(() => {
-
-      this.keyboard.disableScroll(true);
+      console.log('Platform is ready')
+      document.addEventListener('backbutton', () => {
+        console.log('fghjkl');
+        alert('dfghjkl')
+      }, false)
+      this.platform.registerBackButtonAction(()=>{
+        console.log('fghjkl');
+        alert('dfghjkl')
+      })
     });
+
   }
 
   openPage(page) {
