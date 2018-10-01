@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav, IonicApp, App, MenuController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularTokenService } from 'angular-token';
 
@@ -14,7 +14,10 @@ export class AppComponent {
   rootPage: any;
 
   constructor(
-    public platform: Platform,
+    private platform: Platform,
+    private app: App,
+    private ionicApp: IonicApp,
+    private menu: MenuController,
     private translate: TranslateService,
     private tokenService: AngularTokenService
   ) {
@@ -28,15 +31,7 @@ export class AppComponent {
     this.translate.setDefaultLang('ru');
     this.translate.use('ru');
     this.platform.ready().then(() => {
-      console.log('Platform is ready')
-      document.addEventListener('backbutton', () => {
-        console.log('fghjkl');
-        alert('dfghjkl')
-      }, false)
-      this.platform.registerBackButtonAction(()=>{
-        console.log('fghjkl');
-        alert('dfghjkl')
-      })
+      this.setupBackButtonBehavior ();
     });
 
   }
@@ -48,5 +43,49 @@ export class AppComponent {
   logout() {
     this.nav.setRoot(LoginPage);
   }
+
+  private setupBackButtonBehavior () {
+    // https://gist.github.com/t00ts/3542ac4573ffbc73745641fa269326b8
+    // If on web version (browser)
+    if (window.location.protocol !== "file:") {
+
+      // Register browser back button action(s)
+      window.onpopstate = (evt) => {
+
+        // Close menu if open
+        if (this.menu.isOpen()) {
+          this.menu.close ();
+          return;
+        }
+
+        // Close any active modals or overlays
+        let activePortal = this.ionicApp._loadingPortal.getActive() ||
+          this.ionicApp._modalPortal.getActive() ||
+          this.ionicApp._toastPortal.getActive() ||
+          this.ionicApp._overlayPortal.getActive();
+
+        if (activePortal) {
+          activePortal.dismiss();
+          return;
+        }
+
+        // Navigate back
+        if (this.app.getRootNav().canGoBack())
+          this.app.getRootNav().pop()
+        else
+          setInterval(()=> history.go(-1), 700);
+
+      };
+
+      // Fake browser history on each view enter
+      this.app.viewDidEnter.subscribe((app) => {
+        if (this.app.getRootNav().canGoBack())
+          history.pushState (null, null, "");
+      });
+
+    }
+
+  }
+
 
 }

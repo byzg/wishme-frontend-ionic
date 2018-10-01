@@ -18,7 +18,7 @@ export class LoginPage {
     public nav: NavController,
     public menu: MenuController,
     public session: Session,
-    private toastService: ToastService
+    private toastService: ToastService,
   ) {
     this.menu.swipeEnable(false);
     this.sessionForm = new SessionForm(this.session);
@@ -35,7 +35,7 @@ export class LoginPage {
   }
 
   register() {
-    this.nav.setRoot(RegisterPage)
+    this.nav.push(RegisterPage)
   }
 
 }

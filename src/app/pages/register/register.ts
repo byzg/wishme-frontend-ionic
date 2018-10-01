@@ -33,6 +33,6 @@ export class RegisterPage {
   }
 
   loginPage() {
-    this.nav.setRoot(LoginPage);
+    this.nav.push(LoginPage);
   }
 }

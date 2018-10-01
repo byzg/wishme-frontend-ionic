@@ -39,6 +39,10 @@ export class Session extends BaseFactory{
     this.localStorage.remove();
   }
 
+  setAttrs(data): void {
+    this.user.setAttrs(data.user)
+  }
+
   get localStorage() {
     if (!this._localStorage) {
       this._localStorage = new LocalStorage('currentUser');
