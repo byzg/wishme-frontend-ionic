@@ -1,5 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav, IonicApp, App, MenuController } from 'ionic-angular';
+import {
+  Platform,
+  Nav,
+  IonicApp,
+  App,
+  MenuController,
+  ViewController
+} from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularTokenService } from 'angular-token';
 
@@ -11,6 +18,7 @@ import { LoginPage, WishesPage } from './pages';
 
 export class AppComponent {
   @ViewChild(Nav) nav: Nav;
+  @ViewChild(ViewController) view: ViewController;
   rootPage: any;
 
   constructor(
@@ -70,17 +78,19 @@ export class AppComponent {
         }
 
         // Navigate back
-        if (this.app.getRootNav().canGoBack())
+        if (this.app.getActiveNav().getViews().length > 1)
           this.app.getRootNav().pop()
         else
-          setInterval(()=> history.go(-1), 700);
+          history.go(-history.length + 1);
 
       };
 
       // Fake browser history on each view enter
-      this.app.viewDidEnter.subscribe((app) => {
-        if (this.app.getRootNav().canGoBack())
-          history.pushState (null, null, "");
+      this.app.viewDidEnter.subscribe(({index, name}) => {
+        if (index > 0)
+          history.pushState ({ name, index }, name, name);
+        if (history.state && history.state.index > index)
+          history.back();
       });
 
     }

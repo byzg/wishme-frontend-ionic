@@ -26,7 +26,7 @@ export class Session extends BaseFactory{
       this.tokenService.signIn(this.toServerAttrs)
     )).then(record => {
       delete this.user.password;
-      this.localStorage.push(this.user);
+      this.localStorage.push(this.user.attrs);
       return this;
     }).catch(({ error }: { error: { errors: string[] } }) => {
       this.errors = error.errors;
