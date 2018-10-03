@@ -29,11 +29,33 @@
     <script src="build/main.js"></script>
 
     <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(function() { console.log('service worker installed') })
-          .catch(function(err) { console.error('Error', err) });
-      }
+      window.isUpdateAvailable = new Promise(function(resolve, reject) {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('service-worker.js')
+            .then(function(reg) {
+              reg.onupdatefound = function() {
+                console.log('onupdatefound fired');
+                const installingWorker = reg.installing;
+                installingWorker.onstatechange = function() {
+                  switch (installingWorker.state) {
+                    case 'installed':
+                      if (navigator.serviceWorker.controller) {
+                        console.log('installingWorker installed');
+                        // new update available
+                        resolve(true);
+                      } else {
+                        // no update available
+                        resolve(false);
+                      }
+                      break;
+                  }
+                }
+              };
+              console.log('service worker installed')
+            })
+            .catch(function(err) { console.error('[SW ERROR]', err) });
+        }
+      })
     </script>
   </body>
 </html>
