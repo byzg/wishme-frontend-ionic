@@ -1,3 +1,4 @@
+export * from './back-manager';
 export * from './http-helper';
 export * from './local-storage';
 export * from './rest-client';

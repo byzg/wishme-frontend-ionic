@@ -10,6 +10,7 @@ import { AngularTokenModule } from 'angular-token';
 import { environment } from '../environments/environment';
 import {
   ServiceLocator,
+  BackManager,
   HttpHelper,
   Spinner,
   Session,
@@ -81,6 +82,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   bootstrap: [IonicApp],
   providers: [
     AngularTokenModule,
+
+    BackManager,
     Session,
     HttpHelper,
     Spinner,
