@@ -1,12 +1,10 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.1/workbox-sw.js');
+'use strict';
+importScripts('./build/sw-toolbox.js');
 
-if (workbox) {
-  console.log(`Yay! Workbox is loaded 🎉`);
-} else {
-  console.log(`Boo! Workbox didn't load 😬`);
-}
+self.toolbox.options.cache = {
+  name: 'wishme-cache'
+};
 
-workbox.routing.registerRoute(
-  new RegExp('.*\.js'),
-  workbox.strategies.networkFirst()
-);
+// for any other requests go to the network, cache,
+// and then only use that cached resource if your user goes offline
+self.toolbox.router.default = self.toolbox.networkFirst;
