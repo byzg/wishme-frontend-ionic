@@ -40,7 +40,7 @@
                   switch (installingWorker.state) {
                     case 'installed':
                       if (navigator.serviceWorker.controller) {
-                        console.log('installingWorker installed');
+                        console.log('new update available');
                         // new update available
                         resolve(true);
                       } else {
