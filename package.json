@@ -9,7 +9,8 @@
   },
   "scripts": {
     "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
+    "build": "ionic-app-scripts build --prod",
+    "postbuild": "workbox injectManifest",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve"
@@ -36,15 +37,17 @@
     "pluralize": "^7.0.0",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",
-    "sw-toolbox": "3.6.0",
+    "workbox-sw": "^3.6.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@ionic/app-scripts": "^3.2.0",
     "ionic": "^4.1.1",
-    "typescript": "2.8.3"
+    "typescript": "2.8.3",
+    "workbox-cli": "^3.6.2"
   },
   "config": {
-    "ionic_sass": "./sass.js"
+    "ionic_sass": "./sass.js",
+    "ionic_copy": "./copy.config.js"
   }
 }
