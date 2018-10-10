@@ -2,6 +2,7 @@ module.exports = {
   "globDirectory": "www/",
   "globPatterns": [
     "assets/fonts/*.woff2",
+    "assets/i18n/*.json",
     "build/**/*.css",
     "build/**/*.js",
     "index.html",
