@@ -27,15 +27,5 @@
 
     <!-- The bundle js is generated during the build process -->
     <script src="build/main.js"></script>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(function(reg) {
-            console.log('service worker registered: ', reg)
-          })
-          .catch(function(err) { console.error('[SW ERROR]', err) });
-      }
-    </script>
   </body>
 </html>
