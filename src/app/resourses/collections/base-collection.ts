@@ -2,12 +2,12 @@ import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 
 import { BaseFactory } from '../factories/base-factory';
-import { RestClient } from '../../services/rest-client';
+import { RestClient, LF } from '../../services';
 
 @Injectable()
 export class BaseCollection<T extends BaseFactory> extends Array<T> {
   protected _name: string;
-  protected readonly Factory: new (rawDatum: Object) => {};
+  protected readonly Factory: new (rawDatum?: Object) => {};
   protected _restClient: RestClient;
   loaded = false;
 
@@ -57,4 +57,7 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     if (!this._restClient) this._restClient = new RestClient(this._name);
     return this._restClient;
   }
+
+  protected createTable(): void {
+    LF.createTable(this._name, new this.Factory().schema);
 }

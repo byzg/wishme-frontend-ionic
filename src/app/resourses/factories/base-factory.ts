@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { RestClient } from '../../services/rest-client';
+import { RestClient } from '../../services';
 
 export class BaseFactory {
   protected readonly _name: string;
@@ -47,6 +47,10 @@ export class BaseFactory {
     return _.pickBy(this._attrs, (val, attr)=> this._dirty[attr])
   }
 
+  get schema(): Object {
+    return _.extend(this._attrs, this.commonAttrs())
+  }
+
   private commonAttrs = ()=> {
     return {
       id: 0,
@@ -60,7 +64,7 @@ export class BaseFactory {
   }
 
   protected initAttrs(): void {
-    _(this._attrs).extend(this.commonAttrs()).each((val, attr) => {
+    _.each(this.schema, (val, attr) => {
       this._dirty[attr] = false;
       Object.defineProperty(this, attr, {
         get: ()=> this.attrs[attr],

@@ -33,6 +33,7 @@
     "humps": "^2.0.1",
     "ionic-angular": "^3.9.2",
     "ionicons": "^4.4.1",
+    "lovefield": "^2.1.12",
     "pluralize": "^7.0.0",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",

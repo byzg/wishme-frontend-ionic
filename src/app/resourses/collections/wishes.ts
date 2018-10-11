@@ -11,5 +11,6 @@ export class Wishes extends BaseCollection<Wish> {
   constructor() {
     super();
     Object.setPrototypeOf(this, Wishes.prototype);
+    this.createTable();
   }
 }
