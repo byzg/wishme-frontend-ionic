@@ -2,14 +2,15 @@ import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 
 import { BaseFactory } from '../factories/base-factory';
-import { RestClient, LF } from '../../services';
+import { RestClient, LF, LFTable } from '../../services';
 
 @Injectable()
 export class BaseCollection<T extends BaseFactory> extends Array<T> {
   protected _name: string;
-  protected readonly Factory: new (rawDatum?: Object) => {};
+  protected readonly Factory: new (rawDatum?: Object) => BaseFactory;
   protected _restClient: RestClient;
   loaded = false;
+  table: LFTable;
 
   constructor() {
     super();
@@ -38,6 +39,7 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   }
 
   merge(rawDatum: { id: number }): void {
+    this.table.insertOrReplace(rawDatum);
     const resource: T = <T>new this.Factory(rawDatum);
     const oldResource: T = this.find(rawDatum.id);
     if (oldResource) _.extend(oldResource, resource); else this.push(resource);
@@ -59,5 +61,6 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   }
 
   protected createTable(): void {
-    LF.createTable(this._name, new this.Factory().schema);
+    this.table = LF.createTable(this._name, new this.Factory().schema);
+  }
 }

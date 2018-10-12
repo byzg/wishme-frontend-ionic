@@ -1,12 +1,14 @@
 import * as _ from 'lodash';
 
 import { RestClient } from '../../services';
+import { LF, LFTable } from '../../services/lovefield';
 
 export class BaseFactory {
   protected readonly _name: string;
   protected _restClient: RestClient;
   protected _attrs: Object;
   protected _dirty = {};
+  protected _table: LFTable = LF.getTable(this._name);
   id: number;
   updatedAt: string;
 
@@ -30,7 +32,7 @@ export class BaseFactory {
   }
 
   update(): Promise<Object> {
-    return this.restClient.update(this.attrs);
+    return this.restClient.update(this.attrs).then();
   }
 
   save() {
