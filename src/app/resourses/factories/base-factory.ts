@@ -8,7 +8,7 @@ export class BaseFactory {
   protected _restClient: RestClient;
   protected _attrs: Object;
   protected _dirty = {};
-  protected _table: LFTable = LF.getTable(this._name);
+  protected _table: LFTable;
   id: number;
   updatedAt: string;
 
@@ -32,10 +32,11 @@ export class BaseFactory {
   }
 
   update(): Promise<Object> {
-    return this.restClient.update(this.attrs).then();
+    return this.restClient.update(this.attrs);
   }
 
   save() {
+    this.table.insertOrReplace(this.attrs);
     return this.isNew() ? this.create() : this.update();
   }
 
@@ -51,6 +52,11 @@ export class BaseFactory {
 
   get schema(): Object {
     return _.extend(this._attrs, this.commonAttrs())
+  }
+
+  get table(): LFTable {
+    if (!this._table) this._table = LF.getTable(this._name);
+    return this._table;
   }
 
   private commonAttrs = ()=> {

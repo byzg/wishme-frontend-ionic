@@ -1,11 +1,12 @@
 import _ from 'lodash';
+import pluralize from 'pluralize';
 import lf from 'lovefield';
 
 class LFHandler {
   schemaBuilder: lf.schema.Builder = lf.schema.create('wishme-db', 1);
   tables: {[key: string]: LFTable} = {};
 
-  createTable(name: string, attrs: Object) {
+  createTable(name: string, attrs: Object): LFTable {
     let table: lf.schema.TableBuilder = this.schemaBuilder.createTable(name);
     _.each(attrs, (val, attr)=> {
       const lfType = this.mapType(attr, val);
@@ -18,6 +19,10 @@ class LFHandler {
     return this.tables[name];
   }
 
+  getTable(name: string): LFTable {
+    return this.tables[pluralize(name)]
+  }
+
   protected mapType(attr: string, val: any) {
     if (val % 1 == 0) return lf.Type.INTEGER;
     if (typeof val == 'string') return lf.Type.STRING;
@@ -25,7 +30,6 @@ class LFHandler {
 }
 
 export class LFTable {
-  name: string;
   table: lf.schema.Table;
   connect: Promise<lf.Database>;
 
