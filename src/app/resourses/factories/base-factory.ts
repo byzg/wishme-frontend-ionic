@@ -36,7 +36,7 @@ export class BaseFactory {
   }
 
   save() {
-    this.table.insertOrReplace(this.attrs);
+    if (this.table) this.table.insertOrReplace(this.attrs);
     return this.isNew() ? this.create() : this.update();
   }
 

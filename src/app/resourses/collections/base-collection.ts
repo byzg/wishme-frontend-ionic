@@ -14,6 +14,10 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
 
   constructor() {
     super();
+    // WARN: some of the Array methods (map, splice etc.) entail
+    // re-invoking the constructor. Keep this in mind if the constructor
+    // code affects the entire application.
+    // For example, creates tables in IndexedDB
     Object.setPrototypeOf(this, BaseCollection.prototype);
   }
 
