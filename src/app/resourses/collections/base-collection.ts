@@ -22,7 +22,10 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   }
 
   index(): Promise<any> {
-    return this.restClient.index().then((rawData) => {
+    const fetcher = navigator.onLine ?
+      this.restClient.index.bind(this.restClient) :
+      this.table.select.bind(this.table);
+    return fetcher().then((rawData) => {
       _(rawData).each((rawDatum) => this.merge(rawDatum));
       this.loaded = true;
     });

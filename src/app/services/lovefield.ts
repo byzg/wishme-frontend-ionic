@@ -40,9 +40,15 @@ export class LFTable {
   }
 
   insertOrReplace(rowData) {
-    this.connect.then(db=> {
+    return this.connect.then(db=> {
       const row = this.table.createRow(rowData);
-      db.insertOrReplace().into(this.table).values([row]).exec();
+      return db.insertOrReplace().into(this.table).values([row]).exec();
+    });
+  }
+
+  select() {
+    return this.connect.then(db=> {
+      return db.select().from(this.table).exec()
     });
   }
 }
