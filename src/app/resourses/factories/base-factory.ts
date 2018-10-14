@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import uuidv5 from 'uuid/v5';
 
 import { RestClient } from '../../services';
 import { LF, LFTable } from '../../services/lovefield';
@@ -11,6 +12,7 @@ export class BaseFactory {
   protected _table: LFTable;
   id: number;
   updatedAt: string;
+  deletedAt: string;
 
   constructor(data: Object = {}) {
     setTimeout(()=> {
@@ -23,21 +25,28 @@ export class BaseFactory {
     return !_.isNumber(this.id);
   }
 
-  create(): Promise<Object> {
+  create(callback): Promise<Object> {
+    const userUID = localStorage.getItem('uid');
+    this.id = uuidv5(Date(), uuidv5.URL);
     return this.restClient.create(this.attrs)
       .then(record => {
         this.setAttrs(record);
+        callback();
         return this;
       });
   }
 
-  update(): Promise<Object> {
-    return this.restClient.update(this.attrs);
+  update(callback): Promise<Object> {
+    return this.restClient.update(this.attrs).then(()=> {
+      callback();
+      return this;
+    });
   }
 
   save() {
-    if (this.table) this.table.insertOrReplace(this.attrs);
-    return this.isNew() ? this.create() : this.update();
+    return (this.isNew() ? this.create : this.update).call(this, () => {
+      if (this.table) this.table.insertOrReplace(this.attrs)
+    });
   }
 
   setAttrs(data): void {
@@ -62,7 +71,8 @@ export class BaseFactory {
   private commonAttrs = ()=> {
     return {
       id: 0,
-      updatedAt: ''
+      updatedAt: null,
+      deletedAt: null
     }
   };
 

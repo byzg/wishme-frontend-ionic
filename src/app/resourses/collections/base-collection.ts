@@ -46,11 +46,15 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     this.table.insertOrReplace(rawDatum);
     const resource: T = <T>new this.Factory(rawDatum);
     const oldResource: T = this.find(rawDatum.id);
-    if (oldResource) _.extend(oldResource, resource); else this.push(resource);
+    if (oldResource) _.extend(oldResource, resource); else {
+      if (!resource.deletedAt) this.push(resource);
+    }
   }
 
   destroy(item: T): Promise<any> {
     return this.restClient.destroy(item.id).then(()=> {
+      item.deletedAt = new Date().toISOString();
+      this.table.insertOrReplace(item.attrs);
       this.splice(this.indexOf(item), 1)
     });
   }
