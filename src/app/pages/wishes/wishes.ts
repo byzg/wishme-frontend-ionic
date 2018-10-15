@@ -28,8 +28,10 @@ export class WishesPage {
     private nav: NavController,
     public wishes: Wishes
   ) {
-    wishes.index();
-    this.selectMode = new SelectMode(wishes);
+    this.selectMode = new SelectMode();
+    wishes.index().then(()=> {
+      this.selectMode.collection = wishes;
+    });
   }
 
   openForm = (wish: Wish | null)=> {

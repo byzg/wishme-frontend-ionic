@@ -2,15 +2,13 @@ import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 
 import { BaseFactory } from '../factories/base-factory';
-import { RestClient, LF, LFTable } from '../../services';
+import { LF, Requester, RecordableObject } from '../../services';
 
 @Injectable()
 export class BaseCollection<T extends BaseFactory> extends Array<T> {
   protected _name: string;
   protected readonly Factory: new (rawDatum?: Object) => BaseFactory;
-  protected _restClient: RestClient;
   loaded = false;
-  table: LFTable;
 
   constructor() {
     super();
@@ -22,17 +20,10 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   }
 
   index(): Promise<any> {
-    const fetcher = navigator.onLine ?
-      this.restClient.index.bind(this.restClient) :
-      this.table.select.bind(this.table);
-    return fetcher().then((rawData) => {
+    return this.requester.index().then((rawData) => {
       _(rawData).each((rawDatum) => this.merge(rawDatum));
       this.loaded = true;
     });
-  }
-
-  show(id: number): Promise<any> {
-    return this.restClient.show(id).then((rawDatum) => this.merge(rawDatum));
   }
 
   where(condition) {
@@ -45,19 +36,18 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     return _.find(this, arg);
   }
 
-  merge(rawDatum: { id: number }): void {
-    this.table.insertOrReplace(rawDatum);
+  merge(rawDatum: RecordableObject): void {
     const resource: T = <T>new this.Factory(rawDatum);
     const oldResource: T = this.find(rawDatum.id);
-    if (oldResource) _.extend(oldResource, resource); else {
+    if (oldResource) {
+      _.extend(oldResource, resource);
+    } else {
       if (!resource.deletedAt) this.push(resource);
     }
   }
 
   destroy(item: T): Promise<any> {
-    return this.restClient.destroy(item.id).then(()=> {
-      item.deletedAt = new Date().toISOString();
-      this.table.insertOrReplace(item.attrs);
+    return this.requester.destroy(item.id).then(()=> {
       this.splice(this.indexOf(item), 1)
     });
   }
@@ -66,12 +56,11 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     return this.loaded && this.length === 0;
   }
 
-  protected get restClient(): RestClient {
-    if (!this._restClient) this._restClient = new RestClient(this._name);
-    return this._restClient;
+  get requester(): Requester {
+    return new Requester(this._name)
   }
 
   protected createTable(): void {
-    this.table = LF.createTable(this._name, new this.Factory().schema);
+    LF.createTable(this._name, new this.Factory().schema);
   }
 }

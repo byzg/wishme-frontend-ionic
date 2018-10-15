@@ -40,15 +40,32 @@ export class LFTable {
   }
 
   insertOrReplace(rowData) {
-    return this.connect.then(db=> {
+    return this.connect.then(db => {
       const row = this.table.createRow(rowData);
       return db.insertOrReplace().into(this.table).values([row]).exec();
     });
   }
 
+  update(id, attrs) {
+    return this.connect.then(db => {
+      let query = db.update(this.table);
+      _(attrs).each((v, k)=> {
+        query = query.set(this.table[k], v)
+      });
+      return query.where(this.table.id.eq(id)).exec();
+    });
+  }
+
   select() {
-    return this.connect.then(db=> {
+    return this.connect.then(db => {
       return db.select().from(this.table).exec()
+    });
+  }
+
+  destroy(id) {
+    return this.connect.then(db => {
+      return db.delete().from(this.table)
+        .where(this.table.id.eq(id)).exec()
     });
   }
 }

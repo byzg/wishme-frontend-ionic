@@ -40,7 +40,7 @@ export class RestClient {
     return this.action('index');
   }
 
-  show(id: number) {
+  show(id) {
     return this.action('show', { id });
   }
 
@@ -52,7 +52,7 @@ export class RestClient {
     return this.action('update', attributes);
   }
 
-  destroy(id: number) {
+  destroy(id) {
     return this.action('destroy', { id });
   }
 

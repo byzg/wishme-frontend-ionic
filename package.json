@@ -33,12 +33,12 @@
     "humps": "^2.0.1",
     "ionic-angular": "^3.9.2",
     "ionicons": "^4.4.1",
+    "js-sha1": "^0.6.0",
     "lovefield": "^2.1.12",
     "pluralize": "^7.0.0",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",
     "sw-toolbox": "3.6.0",
-    "uuid": "^3.3.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

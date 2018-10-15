@@ -9,6 +9,7 @@ export * from './response-handler';
 export * from './select-mode';
 export * from './toast-service';
 export * from './lovefield';
+export * from './requester';
 
 
 
