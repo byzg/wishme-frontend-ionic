@@ -34,6 +34,8 @@ export class Session extends BaseFactory{
     });
   }
 
+  isNew(): boolean { return true }
+
   destroy() {
     this.tokenService.signOut().subscribe();
     this.localStorage.remove();
