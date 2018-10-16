@@ -52,7 +52,7 @@ export class BaseFactory {
 
   private commonAttrs = ()=> {
     return {
-      id: 0,
+      id: null,
       updatedAt: null,
       deletedAt: null
     }

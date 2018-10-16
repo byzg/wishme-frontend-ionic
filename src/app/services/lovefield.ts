@@ -25,8 +25,8 @@ class LFHandler {
   }
 
   protected mapType(attr: string, val: any) {
-    if (val % 1 == 0) return lf.Type.INTEGER;
     if (!val || typeof val == 'string') return lf.Type.STRING;
+    if (val % 1 == 0) return lf.Type.INTEGER;
   }
 }
 

@@ -21,7 +21,7 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
 
   index(): Promise<any> {
     return this.requester.index().then((rawData) => {
-      _(rawData).each((rawDatum) => this.merge(rawDatum));
+      this.mergeAll(rawData);
       this.loaded = true;
     });
   }
@@ -52,6 +52,13 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     });
   }
 
+  sync() {
+    return this.requester.sync().then((list: RecordableObject[]) => {
+      this.length = 0;
+      this.mergeAll(list);
+    })
+  }
+
   get isEmpty(): boolean {
     return this.loaded && this.length === 0;
   }
@@ -60,7 +67,12 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     return new Requester(this._name)
   }
 
+  protected mergeAll(data: RecordableObject[]) {
+    _(data).each((datum) => this.merge(datum));
+  }
+
   protected createTable(): void {
     LF.createTable(this._name, new this.Factory().schema);
+    window.addEventListener('online',  this.sync.bind(this));
   }
 }
