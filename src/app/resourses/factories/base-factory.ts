@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 
-import { Requester } from '../../services';
+import { Requester, RecordableObject } from '../../services';
 
-export class BaseFactory {
+export class BaseFactory implements RecordableObject {
   protected readonly _name: string;
   protected _attrs: Object;
   id: number;
@@ -50,7 +50,7 @@ export class BaseFactory {
     return _.extend(this._attrs, this.commonAttrs())
   }
 
-  private commonAttrs = ()=> {
+  private commonAttrs = (): RecordableObject=> {
     return {
       id: null,
       updatedAt: null,

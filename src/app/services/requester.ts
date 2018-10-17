@@ -5,7 +5,9 @@ import { RestClient } from './rest-client';
 import { LF, LFTable } from './lovefield';
 
 export interface RecordableObject {
-  id: number | string
+  id: number | string,
+  updatedAt: string,
+  deletedAt: string
 }
 
 class OfflineRequester {
@@ -13,6 +15,10 @@ class OfflineRequester {
   constructor(name: string) {
     this.table = LF.getTable(name)
   }
+
+  now = (): string => {
+    return new Date().toISOString();
+  };
 
   index(): Promise<RecordableObject[]> {
     return this.table.select()
@@ -33,20 +39,16 @@ class OfflineRequester {
   update(attrs: Object): Promise<RecordableObject> {
     return this.table.insertOrReplace({
       ...attrs,
-     updatedAt: this.now
+     updatedAt: this.now()
     });
   }
 
   destroy(id: number | string): Promise<RecordableObject[]> {
-    return this.table.update(id, { deletedAt: this.now });
+    return this.table.update(id, { deletedAt: this.now() });
   }
 
   realDestroy(id: number | string): Promise<RecordableObject[]> {
     return this.table.destroy(id)
-  }
-
-  protected static get now(): string {
-    new Date().toISOString();
   }
 }
 
@@ -87,17 +89,17 @@ export class Requester extends RestClient {
   }
 
   async sync(): Promise<RecordableObject[]> {
-    const records = await this.offline.index();
-    const serverRecords = await super.index();
+    const records: RecordableObject[] = await this.offline.index();
+    const serverRecords: RecordableObject[] = await super.index();
     const deleted = _.reject(records, ['deletedAt', null]);
     const promises = [];
-    const find = (list, { id })=> _.find(list, { id });
+    const find = (list, { id })=> <RecordableObject>_.find(list, { id });
     _(deleted).each(record => {
       if (find(serverRecords, record)) promises.push(super.destroy(record.id));
     });
     const stayed = _.difference(records, deleted);
     _(stayed).each( record => {
-      const serverRecord = find(serverRecords, record);
+      const serverRecord: RecordableObject = find(serverRecords, record);
       if (serverRecord &&
         new Date(serverRecord.updatedAt) < new Date(record.updatedAt)) {
           promises.push(super.update(record))
@@ -108,7 +110,7 @@ export class Requester extends RestClient {
       }
     });
     _(serverRecords).each(serverRecord => {
-      const record = find(stayed, serverRecord);
+      const record: RecordableObject = find(stayed, serverRecord);
       if (serverRecord &&
         new Date(record.updatedAt) < new Date(serverRecord.updatedAt)) {
         promises.push(this.offline.update(record))
