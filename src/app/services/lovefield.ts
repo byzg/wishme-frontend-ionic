@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import pluralize from 'pluralize';
-import lf from 'lovefield/dist/lovefield';
+import lf from 'lovefield';
 
 class LFHandler {
   schemaBuilder: lf.schema.Builder = lf.schema.create('wishme-db', 1);
@@ -42,7 +42,9 @@ export class LFTable {
   insertOrReplace(rowData) {
     return this.connect.then(db => {
       const row = this.table.createRow(rowData);
-      return db.insertOrReplace().into(this.table).values([row]).exec();
+      return db.insertOrReplace().into(this.table)
+        .values([row]).exec()
+        .then(rows => rows[0]);
     });
   }
 

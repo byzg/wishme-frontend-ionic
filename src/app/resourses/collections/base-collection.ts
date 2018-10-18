@@ -72,7 +72,9 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   }
 
   protected createTable(): void {
-    LF.createTable(this._name, new this.Factory().schema);
-    window.addEventListener('online',  this.sync.bind(this));
+    if (!LF.getTable(this._name)) {
+      LF.createTable(this._name, new this.Factory().schema);
+      window.addEventListener('online',  this.sync.bind(this));
+    }
   }
 }

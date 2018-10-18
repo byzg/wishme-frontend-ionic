@@ -1,5 +1,5 @@
 interface SelectModeItem {
-  id: number
+  id: string
 }
 
 export class SelectMode {

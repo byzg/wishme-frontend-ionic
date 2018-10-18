@@ -4,16 +4,15 @@ import { Requester, RecordableObject } from '../../services';
 
 export class BaseFactory implements RecordableObject {
   protected readonly _name: string;
-  protected _attrs: Object;
-  id: number;
+  protected _attrs: Object = {};
+  protected _schema: Object = {};
+  id: string;
   updatedAt: string;
   deletedAt: string;
 
   constructor(data: Object = {}) {
-    setTimeout(()=> {
-      this.initAttrs();
-      this.setAttrs(data);
-    });
+    this.initAttrs();
+    this.setupAttrs(data);
   }
 
   isNew(): boolean {
@@ -43,11 +42,11 @@ export class BaseFactory implements RecordableObject {
   }
 
   get attrs() {
-    return this._attrs;
+    return this._attrs
   }
 
-  get schema(): Object {
-    return _.extend(this._attrs, this.commonAttrs())
+  get schema() {
+    return this._schema
   }
 
   private commonAttrs = (): RecordableObject=> {
@@ -62,8 +61,14 @@ export class BaseFactory implements RecordableObject {
     return new Requester(this._name)
   }
 
-  protected initAttrs(): void {
-    _.each(this.schema, (val, attr) => {
+  protected initAttrs() {}
+
+  protected setupAttrs(data: Object): void {
+    this._schema = _.extend(this._attrs, this.commonAttrs());
+    _(this._attrs).each((val, attr)=> {
+      this._attrs[attr] = data[attr]
+    });
+    _.each(this._attrs, (val, attr) => {
       Object.defineProperty(this, attr, {
         get: ()=> this.attrs[attr],
         set: (val)=> this._attrs[attr] = val

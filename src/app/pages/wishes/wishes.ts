@@ -16,7 +16,7 @@ export class WishesPage {
     {
       name: 'trash',
       handler: ()=> {
-        this.wishes.map((wish: Wish)=> {
+        this.wishes.forEach((wish: Wish)=> {
           if (this.selectMode.isSelected(wish)) this.wishes.destroy(wish)
         })
       },

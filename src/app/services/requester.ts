@@ -5,7 +5,7 @@ import { RestClient } from './rest-client';
 import { LF, LFTable } from './lovefield';
 
 export interface RecordableObject {
-  id: number | string,
+  id: string,
   updatedAt: string,
   deletedAt: string
 }
@@ -29,7 +29,7 @@ class OfflineRequester {
       localStorage.getItem('uid') +
       this.table.name +
       this.now()
-    )
+    );
     return this.table.insertOrReplace({
       ...attrs,
       id,
@@ -43,11 +43,11 @@ class OfflineRequester {
     });
   }
 
-  destroy(id: number | string): Promise<RecordableObject[]> {
+  destroy(id: string): Promise<RecordableObject[]> {
     return this.table.update(id, { deletedAt: this.now() });
   }
 
-  realDestroy(id: number | string): Promise<RecordableObject[]> {
+  realDestroy(id: string): Promise<RecordableObject[]> {
     return this.table.destroy(id)
   }
 }
@@ -80,7 +80,7 @@ export class Requester extends RestClient {
     return this.createOrUpdate('update', attrs)
   }
 
-  destroy(id: number | string): Promise<RecordableObject[]> {
+  destroy(id: string): Promise<RecordableObject[]> {
     if (navigator.onLine)
       return super.destroy(id)
         .then(()=> this.offline.realDestroy(id));
@@ -104,10 +104,15 @@ export class Requester extends RestClient {
         if (new Date(serverRecord.updatedAt) < new Date(record.updatedAt)) {
           promises.push(super.update(record))
         }
-      } else if (isFinite(record.id)) {
+      } else if (Number(record.id)) {
         promises.push(this.offline.realDestroy(record.id))
       } else {
-        promises.push(this.create(record));
+        promises.push(
+          super.create(record)
+          .then(createdRecord => {
+            this.offline.table.update(record.id, createdRecord)
+          })
+        );
       }
     });
     _(serverRecords).each(serverRecord => {
