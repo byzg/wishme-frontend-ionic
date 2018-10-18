@@ -28,8 +28,8 @@ class OfflineRequester {
     const id = attrs.id || sha1(
       localStorage.getItem('uid') +
       this.table.name +
-      Date()
-    );
+      this.now()
+    )
     return this.table.insertOrReplace({
       ...attrs,
       id,
@@ -91,7 +91,7 @@ export class Requester extends RestClient {
   async sync(): Promise<RecordableObject[]> {
     const records: RecordableObject[] = await this.offline.index();
     const serverRecords: RecordableObject[] = await super.index();
-    const deleted = _.reject(records, ['deletedAt', null]);
+    const deleted = _.filter(records, 'deletedAt');
     const promises = [];
     const find = (list, { id })=> <RecordableObject>_.find(list, { id });
     _(deleted).each(record => {
@@ -100,10 +100,11 @@ export class Requester extends RestClient {
     const stayed = _.difference(records, deleted);
     _(stayed).each( record => {
       const serverRecord: RecordableObject = find(serverRecords, record);
-      if (serverRecord &&
-        new Date(serverRecord.updatedAt) < new Date(record.updatedAt)) {
+      if (serverRecord) {
+        if (new Date(serverRecord.updatedAt) < new Date(record.updatedAt)) {
           promises.push(super.update(record))
-      } else if (_.isNumber(record.id)) {
+        }
+      } else if (isFinite(record.id)) {
         promises.push(this.offline.realDestroy(record.id))
       } else {
         promises.push(this.create(record));
@@ -111,9 +112,10 @@ export class Requester extends RestClient {
     });
     _(serverRecords).each(serverRecord => {
       const record: RecordableObject = find(stayed, serverRecord);
-      if (serverRecord &&
-        new Date(record.updatedAt) < new Date(serverRecord.updatedAt)) {
-        promises.push(this.offline.update(record))
+      if (record) {
+        if (new Date(record.updatedAt) < new Date(serverRecord.updatedAt)) {
+          promises.push(this.offline.update(record))
+        }
       } else {
         promises.push(this.offline.create(serverRecord))
       }
@@ -122,12 +124,13 @@ export class Requester extends RestClient {
   }
 
   protected createOrUpdate(method: string, attrs: Object) {
-    if (navigator.onLine)
+    if (navigator.onLine) {
       return super[method](attrs)
         .then((savedObj: RecordableObject) => {
           return this.offline[method](savedObj);
         });
-    else
+    } else {
       return this.offline[method](attrs);
+    }
   }
 }

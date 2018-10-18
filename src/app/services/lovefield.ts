@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import pluralize from 'pluralize';
-import lf from 'lovefield';
+import lf from 'lovefield/dist/lovefield';
 
 class LFHandler {
   schemaBuilder: lf.schema.Builder = lf.schema.create('wishme-db', 1);
   tables: {[key: string]: LFTable} = {};
 
   createTable(name: string, attrs: Object): LFTable {
-    if (this.tables[name]) return this.tables[name]
+    if (this.tables[name]) return this.tables[name];
     let table: lf.schema.TableBuilder = this.schemaBuilder.createTable(name);
     _.each(attrs, (val, attr)=> {
       const lfType = this.mapType(attr, val);
