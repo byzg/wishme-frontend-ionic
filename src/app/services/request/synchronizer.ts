@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 import { OfflineRequester } from './offline-requester';
 import { RestClient } from './rest-client';
 import { RecordableObject } from './requester';
-import { RestClient } from './rest-client';
 
 export class Synchronizer extends RestClient {
   protected promises: Promise<any>[] = [];
