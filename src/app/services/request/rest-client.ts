@@ -1,8 +1,8 @@
 import * as pluralize from 'pluralize';
 import * as _ from 'lodash';
 
-import { ServiceLocator } from './service-locator';
-import { HttpHelper } from './http-helper';
+import { ServiceLocator } from '../service-locator';
+import { HttpHelper } from '../http-helper';
 
 interface IUrlMap {
   index: () => string

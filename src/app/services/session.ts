@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularTokenService } from 'angular-token';
 
 import { LocalStorage } from './local-storage';
-import { ResponseHandler } from './response-handler';
+import { ResponseHandler } from './request/response-handler';
 import { User } from '../resourses/factories';
 import { BaseFactory } from '../resourses/factories/base-factory';
 
