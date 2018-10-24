@@ -30,10 +30,11 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     return _.filter(this, condition);
   }
 
-  find(_arg) {
-    const arg: any = _.isString(_arg) ? parseInt(_arg, 10) : _arg;
-    if (_.isNumber(arg)) { return this.find({id: arg}); }
-    return _.find(this, arg);
+  find(arg) {
+    return _.find(
+      this,
+      _.isObject(arg) ? arg : { id: arg }
+    );
   }
 
   merge(rawDatum: RecordableObject): void {

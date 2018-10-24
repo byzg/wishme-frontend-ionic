@@ -5,7 +5,10 @@
   <ion-buttons end>
     <button *ngFor="let action of actions"
             ion-button icon-only (click)="action.handler()">
-      <ion-icon *ngIf="action.isShown()" [name]="action.name"></ion-icon>
+      <ion-icon
+        *ngIf="!action.isShown || action.isShown()"
+        [name]="action.name">
+      </ion-icon>
     </button>
     <button ion-button icon-only (click)="logout()">
       <ion-icon name="log-out"></ion-icon>

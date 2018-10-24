@@ -10,7 +10,7 @@ export class Wish extends BaseFactory {
     this._attrs = {
       title: '',
       text: '',
-      price: 0
+      price: 0.0
     }
   };
 }
