@@ -10,16 +10,17 @@ export interface RecordableObject {
   deletedAt: string
 }
 
-export class Requester extends RestClient {
+export class Requester {
   offline: OfflineRequester;
+  online: RestClient;
   constructor(protected name: string) {
-    super(name);
+    this.online = new RestClient(name);
     this.offline = new OfflineRequester(name);
   }
 
   index(): Promise<RecordableObject[]> {
     if (navigator.onLine)
-      return super.index()
+      return this.online.index()
         .then((list: RecordableObject[]) => {
           _(list).each((item: RecordableObject) => {
             this.offline.table.insertOrReplace(item)
@@ -40,19 +41,19 @@ export class Requester extends RestClient {
 
   destroy(id: string): Promise<RecordableObject[]> {
     if (navigator.onLine)
-      return super.destroy(id)
+      return this.online.destroy(id)
         .then(()=> this.offline.realDestroy(id));
     else
       return this.offline.destroy(id)
   }
 
   sync(): Promise<RecordableObject[]> {
-    return new Synchronizer(this.name, this.offline).run();
+    return new Synchronizer(this.online, this.offline).run();
   }
 
   protected createOrUpdate(method: string, attrs: Object) {
     if (navigator.onLine) {
-      return super[method](attrs)
+      return this.online[method](attrs)
         .then((savedObj: RecordableObject) => {
           return this.offline[method](savedObj);
         });

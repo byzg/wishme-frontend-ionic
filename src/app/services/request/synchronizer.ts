@@ -4,7 +4,7 @@ import { OfflineRequester } from './offline-requester';
 import { RestClient } from './rest-client';
 import { RecordableObject } from './requester';
 
-export class Synchronizer extends RestClient {
+export class Synchronizer {
   protected promises: Promise<any>[] = [];
   protected clientRecords: RecordableObject[];
   protected deletedClientRecords: RecordableObject[];
@@ -12,15 +12,13 @@ export class Synchronizer extends RestClient {
   protected serverRecords: RecordableObject[];
 
   constructor(
-    protected name: string,
+    protected online: RestClient,
     protected offline: OfflineRequester
-  ) {
-    super(name);
-  }
+  ) {}
 
   async run(): Promise<RecordableObject[]> {
     this.clientRecords = await this.offline.index();
-    this.serverRecords = await super.index();
+    this.serverRecords = await this.online.index();
     this.deletedClientRecords =
       _.filter(this.clientRecords, 'deletedAt');
     this.stayedClientRecords =
@@ -38,7 +36,7 @@ export class Synchronizer extends RestClient {
   protected handleDeleted(): void {
     _(this.deletedClientRecords).each(record => {
       if (this.find(this.serverRecords, record))
-        this.promises.push(super.destroy(record.id));
+        this.promises.push(this.online.destroy(record.id));
     });
   }
 
@@ -48,13 +46,13 @@ export class Synchronizer extends RestClient {
         this.find(this.serverRecords, record);
       if (serverRecord) {
         if (new Date(serverRecord.updatedAt) < new Date(record.updatedAt)) {
-          this.promises.push(super.update(record))
+          this.promises.push(this.online.update(record))
         }
       } else if (Number(record.id)) {
         this.promises.push(this.offline.realDestroy(record.id))
       } else {
         this.promises.push(
-          super.create(record)
+          this.online.create(record)
             .then(createdRecord => {
               this.offline.table.update(record.id, createdRecord)
             })
