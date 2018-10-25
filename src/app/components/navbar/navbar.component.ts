@@ -1,8 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { NavController } from 'ionic-angular';
-
-import { LoginPage } from '../../pages';
-import { Session } from '../../services';
 
 @Component({
   selector: 'wsm-navbar',
@@ -10,13 +6,4 @@ import { Session } from '../../services';
 })
 export class NavbarComponent {
   @Input() actions: Object[] = [];
-  constructor(
-    private session: Session,
-    private nav: NavController
-  ) { }
-
-  logout() {
-    this.session.destroy();
-    this.nav.setRoot(LoginPage);
-  }
 }

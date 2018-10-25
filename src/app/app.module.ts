@@ -29,7 +29,12 @@ import {
   WishPartial
 } from './pages';
 
-import { SpinnerComponent, NavbarComponent } from './components';
+import {
+  SpinnerComponent,
+  NavbarComponent,
+  MenuComponent,
+  MenuHeaderComponent
+} from './components';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -47,6 +52,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     SpinnerComponent,
     NavbarComponent,
+    MenuComponent,
+    MenuHeaderComponent
   ],
   entryComponents: [
     AppComponent,
