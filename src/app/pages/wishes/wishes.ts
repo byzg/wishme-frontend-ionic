@@ -16,7 +16,7 @@ export class WishesPage {
     {
       name: 'trash',
       handler: ()=> {
-        this.wishes.map((wish: Wish)=> {
+        this.wishes.forEach((wish: Wish)=> {
           if (this.selectMode.isSelected(wish)) this.wishes.destroy(wish)
         })
       },
@@ -28,8 +28,10 @@ export class WishesPage {
     private nav: NavController,
     public wishes: Wishes
   ) {
-    wishes.index();
-    this.selectMode = new SelectMode(wishes);
+    this.selectMode = new SelectMode();
+    wishes.index().then(()=> {
+      this.selectMode.collection = wishes;
+    });
   }
 
   openForm = (wish: Wish | null)=> {

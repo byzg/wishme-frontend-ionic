@@ -6,7 +6,7 @@ import qs from 'qs';
 import * as _ from 'lodash';
 
 import { environment } from '../../environments/environment';
-import { ResponseHandler } from "./response-handler";
+import { ResponseHandler } from './request/response-handler';
 
 class Request {
   private httpArgs: any[];

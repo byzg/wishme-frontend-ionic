@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { AngularTokenService } from 'angular-token';
 
 import { LocalStorage } from './local-storage';
-import { ResponseHandler } from './response-handler';
+import { ResponseHandler } from './request/response-handler';
 import { User } from '../resourses/factories';
 import { BaseFactory } from '../resourses/factories/base-factory';
 
 
 @Injectable()
 export class Session extends BaseFactory{
-  user: User = new User(this.localStorage.pull());
+  user: User;
   protected readonly _name: string = 'session';
   private _localStorage: LocalStorage;
   errors: string[] = [];
@@ -34,6 +34,8 @@ export class Session extends BaseFactory{
     });
   }
 
+  isNew(): boolean { return true }
+
   destroy() {
     this.tokenService.signOut().subscribe();
     this.localStorage.remove();
@@ -53,5 +55,9 @@ export class Session extends BaseFactory{
   get toServerAttrs() {
     const { email, password } = this.user;
     return { login: email, password };
+  }
+
+  protected initAttrs() {
+    this.user = new User(this.localStorage.pull());
   }
 }

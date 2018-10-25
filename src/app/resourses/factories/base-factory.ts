@@ -1,28 +1,26 @@
 import * as _ from 'lodash';
 
-import { RestClient } from '../../services/rest-client';
+import { Requester, RecordableObject } from '../../services';
 
-export class BaseFactory {
+export class BaseFactory implements RecordableObject {
   protected readonly _name: string;
-  protected _restClient: RestClient;
-  protected _attrs: Object;
-  protected _dirty = {};
-  id: number;
+  protected _attrs: Object = {};
+  protected _schema: Object = {};
+  id: string;
   updatedAt: string;
+  deletedAt: string;
 
   constructor(data: Object = {}) {
-    setTimeout(()=> {
-      this.initAttrs();
-      this.setAttrs(data);
-    });
+    this.initAttrs();
+    this.setupAttrs(data);
   }
 
   isNew(): boolean {
-    return !_.isNumber(this.id);
+    return !this.id;
   }
 
   create(): Promise<Object> {
-    return this.restClient.create(this.attrs)
+    return this.requester.create(this.attrs)
       .then(record => {
         this.setAttrs(record);
         return this;
@@ -30,7 +28,7 @@ export class BaseFactory {
   }
 
   update(): Promise<Object> {
-    return this.restClient.update(this.attrs);
+    return this.requester.update(this.attrs)
   }
 
   save() {
@@ -44,30 +42,39 @@ export class BaseFactory {
   }
 
   get attrs() {
-    return _.pickBy(this._attrs, (val, attr)=> this._dirty[attr])
+    return this._attrs
   }
 
-  private commonAttrs = ()=> {
+  get schema() {
+    return this._schema
+  }
+
+  private commonAttrs = (): RecordableObject=> {
     return {
-      id: 0,
-      updatedAt: ''
+      id: null,
+      updatedAt: null,
+      deletedAt: null
     }
   };
 
-  protected get restClient(): RestClient {
-    if (!this._restClient) { this._restClient = new RestClient(this._name); }
-    return this._restClient;
+  get requester(): Requester {
+    return new Requester(this._name)
   }
 
-  protected initAttrs(): void {
-    _(this._attrs).extend(this.commonAttrs()).each((val, attr) => {
-      this._dirty[attr] = false;
+  protected initAttrs() {}
+
+  protected setupAttrs(data: Object): void {
+    // NOTE: destructuring and lodash extend is not same
+    // see a = {foo: 2}; b = {bar: 3}; c = _.extend(a, b); a.foo = 8; c.foo;
+    _.extend(this._attrs, this.commonAttrs());
+    this._schema = { ...this._attrs };
+    _(this._attrs).each((val, attr)=> {
+      this._attrs[attr] = data[attr]
+    });
+    _.each(this._attrs, (val, attr) => {
       Object.defineProperty(this, attr, {
         get: ()=> this.attrs[attr],
-        set: (val)=> {
-          this._dirty[attr] = true;
-          this._attrs[attr] = val;
-        }
+        set: (val)=> this._attrs[attr] = val
       })
     })
   }

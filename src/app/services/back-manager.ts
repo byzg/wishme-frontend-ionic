@@ -33,7 +33,6 @@ export class BackManager {
           return;
         }
 
-        console.log(this.app)
         // Navigate back
         if (this.app.getActiveNav().getViews().length > 1)
           this.app.getRootNav().pop()

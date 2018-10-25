@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import humps from 'humps';
 
-import { Spinner } from './spinner';
+import { Spinner } from '../spinner';
 
 @Injectable()
 export class ResponseHandler {

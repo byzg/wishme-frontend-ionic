@@ -1,8 +1,8 @@
 import * as pluralize from 'pluralize';
 import * as _ from 'lodash';
 
-import { ServiceLocator } from './service-locator';
-import { HttpHelper } from './http-helper';
+import { ServiceLocator } from '../service-locator';
+import { HttpHelper } from '../http-helper';
 
 interface IUrlMap {
   index: () => string
@@ -40,7 +40,7 @@ export class RestClient {
     return this.action('index');
   }
 
-  show(id: number) {
+  show(id) {
     return this.action('show', { id });
   }
 
@@ -52,7 +52,7 @@ export class RestClient {
     return this.action('update', attributes);
   }
 
-  destroy(id: number) {
+  destroy(id) {
     return this.action('destroy', { id });
   }
 

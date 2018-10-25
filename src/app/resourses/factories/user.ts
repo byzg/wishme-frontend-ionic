@@ -12,15 +12,17 @@ export interface ReasonError {
 
 export class User extends BaseFactory {
   protected readonly _name = 'user';
-  protected _attrs = {
-    name: '',
-    email: '',
-    password: '',
-  };
   name: string;
   email: string;
   password: string;
   errors: string[] = [];
+  protected initAttrs() {
+    this._attrs = {
+      name: '',
+      email: '',
+      password: '',
+    };
+  };
 
   private tokenService: AngularTokenService
     = ServiceLocator.get(AngularTokenService);

@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, NavController } from 'ionic-angular';
 
 import { WishForm } from '../../forms';
 import { Wishes } from '../../resourses/collections';
 import { Wish } from '../../resourses/factories';
+import { WishesPage } from './wishes';
 
 @Component({
   templateUrl: 'form.html'
@@ -12,14 +13,32 @@ export class WishFormPage {
   path = 'pages.wishes.form';
   wish: Wish;
   wishForm: WishForm;
+  navbarActions = [
+    {
+      name: 'checkmark',
+      handler: ()=> {
+        this.skipOnBack = true;
+        this.wishForm.save().then(()=>
+          this.nav.setRoot(WishesPage)
+        );
+      }
+    }
+  ];
+  private skipOnBack = false;
 
-  constructor(navParams: NavParams, wishes: Wishes) {
+  constructor(
+    private nav: NavController,
+    navParams: NavParams,
+    wishes: Wishes
+  ) {
     this.wish = navParams.get('wish') || new Wish();
     this.wishForm = new WishForm(this.wish, wishes);
   }
 
   ionViewWillLeave() {
-    this.wishForm.save()
+    if (!this.skipOnBack) {
+      this.wishForm.save()
+    }
+    this.skipOnBack = false;
   }
-
 }

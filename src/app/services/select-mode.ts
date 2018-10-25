@@ -1,15 +1,16 @@
 interface SelectModeItem {
-  id: number
+  id: string
 }
 
 export class SelectMode {
   private mapping = {};
-  constructor(private collection: Array<SelectModeItem>) {}
+  public collection: Array<SelectModeItem>;
 
   get enabled(): boolean {
-    return this.collection.some((item: SelectModeItem)=> {
-      return this.isSelected(item);
-    });
+    return this.collection &&
+      this.collection.some((item: SelectModeItem)=> {
+        return this.isSelected(item);
+      });
   }
 
   isSelected(item: SelectModeItem) {
