@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { RegisterForm } from '../../forms';
 import { User } from '../../resourses/factories';
-import { ToastService } from '../../services';
+import { ToastService, Session } from '../../services';
 import { BaseCollection } from '../../resourses/collections';
 import { LoginPage } from '../login/login';
 import { WishesPage } from '../wishes/wishes';
@@ -21,12 +21,16 @@ export class RegisterPage {
 
   constructor(
     private nav: NavController,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private session: Session
   ) {}
 
   register() {
     this.registerForm.save()
-      .then(() => this.nav.setRoot(WishesPage))
+      .then((user: User) => {
+        this.session.resetUser(user);
+        this.nav.setRoot(WishesPage)
+      })
       .catch(()=> {
         this.toastService.modelError(this.user)
       })

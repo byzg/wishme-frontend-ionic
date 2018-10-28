@@ -53,14 +53,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     SpinnerComponent,
     NavbarComponent,
     MenuComponent,
-    MenuHeaderComponent
+    MenuHeaderComponent,
   ],
   entryComponents: [
     AppComponent,
     LoginPage,
     RegisterPage,
     WishesPage,
-    WishFormPage
+    WishFormPage,
   ],
   imports: [
     BrowserModule,

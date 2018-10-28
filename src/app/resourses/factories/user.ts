@@ -32,7 +32,7 @@ export class User extends BaseFactory {
   create(): Promise<User> {
     return this.responseHandler.wrap(()=> (
       this.tokenService.registerAccount(this.toServerAttrs)
-    )).then(attrs => {
+    )).then(({ data: attrs }) => {
       this.setAttrs(attrs);
       return this;
     }).catch(({ error }: { error: ReasonError }) => {
