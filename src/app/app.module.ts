@@ -6,6 +6,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AngularTokenModule } from 'angular-token';
+import { AvatarModule } from 'ng2-avatar';
 
 import { environment } from '../environments/environment';
 import {
@@ -85,6 +86,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       apiBase:                    environment.API_URL,
       registerAccountPath:        'auth',
     }),
+    AvatarModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   providers: [

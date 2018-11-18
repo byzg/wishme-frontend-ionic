@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import { AngularTokenService } from 'angular-token';
 
 import { BaseFactory } from './base-factory';
@@ -21,6 +20,7 @@ export class User extends BaseFactory {
       name: '',
       email: '',
       password: '',
+      avatar: ''
     };
   };
 

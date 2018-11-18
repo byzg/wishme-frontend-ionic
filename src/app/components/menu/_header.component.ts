@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
 
 import { LoginPage } from '../../pages';
 import { Session } from '../../services';
@@ -9,15 +9,18 @@ import { Session } from '../../services';
   templateUrl: '_header.component.html'
 })
 export class MenuHeaderComponent {
-  // @ViewChild(NavController) nav: NavController;
+  private navCtrl: NavController;
+  path = 'components.menu.header';
 
   constructor(
     public session: Session,
-    // private nav: NavController
-  ) {}
+    private app: App
+  ) {
+    this.navCtrl = app.getActiveNav();
+  }
 
   logout() {
     this.session.destroy();
-    // this.nav.setRoot(LoginPage);
+    this.navCtrl.setRoot(LoginPage);
   }
 }

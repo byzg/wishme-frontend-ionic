@@ -4,9 +4,10 @@
     <ion-grid>
       <ion-row>
         <ion-col col-4>
-          <div class="user-avatar">
-            <img src="../assets/img/avatar.jpeg">
-          </div>
+          <avatar [name]="session.user.name"
+                  [displayType]="'circle'"
+                  size="68">
+          </avatar>
         </ion-col>
         <ion-col padding-top col-8>
           <h2 ion-text class="no-margin bold text-white">
@@ -22,7 +23,7 @@
                   menuClose
                   (click)="logout()">
             <ion-icon name="log-out"></ion-icon>
-            Log out
+            {{'.logout' | t:path}}
           </button>
         </ion-col>
       </ion-row>
