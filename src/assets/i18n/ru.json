@@ -26,5 +26,12 @@
         "price": "Цена"
       }
     }
+  },
+  "components": {
+    "menu": {
+      "header": {
+        "logout": "Выйти"
+      }
+    }
   }
 }

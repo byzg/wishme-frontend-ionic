@@ -1,10 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { Platform, Nav } from "ionic-angular";
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { Keyboard } from '@ionic-native/keyboard';
-
 import { HomePage } from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
 import { LocalWeatherPage } from "../pages/local-weather/local-weather";
@@ -28,9 +24,6 @@ export class MyApp {
 
   constructor(
     public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen,
-    public keyboard: Keyboard
   ) {
     this.initializeApp();
 
@@ -43,17 +36,6 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
-
-      //*** Control Splash Screen
-      // this.splashScreen.show();
-      // this.splashScreen.hide();
-
-      //*** Control Status Bar
-      this.statusBar.styleDefault();
-      this.statusBar.overlaysWebView(false);
-
-      //*** Control Keyboard
-      this.keyboard.disableScroll(true);
     });
   }
 

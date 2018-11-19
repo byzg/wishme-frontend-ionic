@@ -24,9 +24,8 @@ export class Session extends BaseFactory{
   create(): Promise<Session> {
     return this.responseHandler.wrap(()=> (
       this.tokenService.signIn(this.toServerAttrs)
-    )).then(record => {
-      delete this.user.password;
-      this.localStorage.push(this.user.attrs);
+    )).then(({ body: { data: user }}) => {
+      this.resetUser(new User(user));
       return this;
     }).catch(({ error }: { error: { errors: string[] } }) => {
       this.errors = error.errors;
@@ -41,8 +40,14 @@ export class Session extends BaseFactory{
     this.localStorage.remove();
   }
 
-  setAttrs(data): void {
-    this.user.setAttrs(data.user)
+  setAttrs({ user: attrs }): void {
+    this.user.setAttrs(attrs)
+  }
+
+  resetUser(user: User) {
+    this.user = user;
+    this.user.password = null;
+    this.localStorage.push(this.user.attrs);
   }
 
   get localStorage() {

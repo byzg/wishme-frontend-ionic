@@ -1,0 +1,18 @@
+wsm-menu-header {
+  .user-profile {
+    avatar > div {
+      box-shadow: inset 0 0 10rem rgba(0,0,0,.25), 0 0 4rem rgba(255,255,255,.45);
+    }
+    .toolbar-background {
+      background-image: linear-gradient(135deg, color($colors, dark), color($colors, primary));
+    }
+
+    .other-data {
+      .column {
+        &:first-child {
+          border-right: 1px solid rgba(36, 50, 157, .25);
+        }
+      }
+    }
+  }
+}

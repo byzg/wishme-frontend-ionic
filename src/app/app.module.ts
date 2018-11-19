@@ -6,6 +6,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AngularTokenModule } from 'angular-token';
+import { AvatarModule } from 'ng2-avatar';
 
 import { environment } from '../environments/environment';
 import {
@@ -29,7 +30,12 @@ import {
   WishPartial
 } from './pages';
 
-import { SpinnerComponent, NavbarComponent } from './components';
+import {
+  SpinnerComponent,
+  NavbarComponent,
+  MenuComponent,
+  MenuHeaderComponent
+} from './components';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -47,13 +53,15 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     SpinnerComponent,
     NavbarComponent,
+    MenuComponent,
+    MenuHeaderComponent,
   ],
   entryComponents: [
     AppComponent,
     LoginPage,
     RegisterPage,
     WishesPage,
-    WishFormPage
+    WishFormPage,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +86,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       apiBase:                    environment.API_URL,
       registerAccountPath:        'auth',
     }),
+    AvatarModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   providers: [

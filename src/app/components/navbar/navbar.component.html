@@ -1,4 +1,7 @@
 <ion-navbar color="light">
+  <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
   <ion-title>
     <img class="wsm-navbar-brand" src="/assets/img/Brand_Max.png" />
   </ion-title>
@@ -9,9 +12,6 @@
         *ngIf="!action.isShown || action.isShown()"
         [name]="action.name">
       </ion-icon>
-    </button>
-    <button ion-button icon-only (click)="logout()">
-      <ion-icon name="log-out"></ion-icon>
     </button>
   </ion-buttons>
 </ion-navbar>
