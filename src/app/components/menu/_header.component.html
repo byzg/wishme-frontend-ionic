@@ -1,34 +1,32 @@
-<ion-header>
-  <ion-toolbar class="user-profile">
+<ion-toolbar class="user-profile">
 
-    <ion-grid>
-      <ion-row>
-        <ion-col col-4>
-          <avatar [name]="session.user.name"
-                  [displayType]="'circle'"
-                  size="68">
-          </avatar>
-        </ion-col>
-        <ion-col padding-top col-8>
-          <h2 ion-text class="no-margin bold text-white">
-            {{session.user.name}}
-          </h2>
-        </ion-col>
-      </ion-row>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4>
+        <avatar [name]="session.user.name"
+                [displayType]="'circle'"
+                size="68">
+        </avatar>
+      </ion-col>
+      <ion-col padding-top col-8>
+        <h2 ion-text class="no-margin bold text-white">
+          {{session.user.name}}
+        </h2>
+      </ion-col>
+    </ion-row>
 
-      <ion-row no-padding class="other-data">
-        <ion-col no-padding class="column">
-          <button ion-button icon-left small full
-                  color="light"
-                  menuClose
-                  (click)="logout()">
-            <ion-icon name="log-out"></ion-icon>
-            {{'.logout' | t:path}}
-          </button>
-        </ion-col>
-      </ion-row>
+    <ion-row no-padding class="other-data">
+      <ion-col no-padding class="column">
+        <button ion-button icon-left small full
+                color="light"
+                menuClose
+                (click)="logout()">
+          <ion-icon name="log-out"></ion-icon>
+          {{'.logout' | t:path}}
+        </button>
+      </ion-col>
+    </ion-row>
 
-    </ion-grid>
+  </ion-grid>
 
-  </ion-toolbar>
-</ion-header>
+</ion-toolbar>

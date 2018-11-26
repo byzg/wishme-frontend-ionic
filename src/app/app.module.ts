@@ -27,7 +27,8 @@ import {
   RegisterPage,
   WishesPage,
   WishFormPage,
-  WishPartial
+  WishPartial,
+  UsersPage,
 } from './pages';
 
 import {
@@ -50,6 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WishesPage,
     WishFormPage,
     WishPartial,
+    UsersPage,
 
     SpinnerComponent,
     NavbarComponent,
@@ -62,6 +64,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegisterPage,
     WishesPage,
     WishFormPage,
+    UsersPage,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, App } from 'ionic-angular';
 
 import { LoginPage } from '../../pages';
@@ -16,7 +16,7 @@ export class MenuHeaderComponent {
     public session: Session,
     private app: App
   ) {
-    this.navCtrl = app.getActiveNav();
+    this.navCtrl = app.getActiveNavs()[0];
   }
 
   logout() {
