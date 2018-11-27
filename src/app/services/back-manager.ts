@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { App, IonicApp, MenuController } from 'ionic-angular';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class BackManager {
   constructor(
@@ -42,7 +44,7 @@ export class BackManager {
 
       // Fake browser history on each view enter
       this.app.viewDidEnter.subscribe(({index, name}) => {
-        if (index > 0)
+        if (index > 0 && environment.production)
           history.pushState ({ name, index }, name, name);
         if (history.state && history.state.index > index)
           history.back();

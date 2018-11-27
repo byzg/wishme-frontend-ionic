@@ -15,11 +15,12 @@ export interface MenuItem {
 })
 export class MenuComponent {
   @Input() content: any;
+  path = 'components.menu.items';
 
   appMenuItems: MenuItem[] = [
     {
-      title: 'Люди',
-      icon: 'home',
+      title: '.people',
+      icon: 'people',
       component: UsersPage
     }
   ];

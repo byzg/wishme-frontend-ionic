@@ -8,7 +8,7 @@
       <button ion-item menuClose class="text-1x" *ngFor="let menuItem of appMenuItems" (click)="openPage(menuItem)"
       >
         <ion-icon item-left [name]="menuItem.icon" color="primary"></ion-icon>
-        <span ion-text color="primary">{{menuItem.title}}</span>
+        <span ion-text color="primary">{{menuItem.title | t:path}}</span>
       </button>
     </ion-list>
   </ion-content>
