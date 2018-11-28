@@ -32,6 +32,7 @@ export class WishesPage {
     wishes.index().then(()=> {
       this.selectMode.collection = wishes;
     });
+
   }
 
   openForm = (wish: Wish | null)=> {

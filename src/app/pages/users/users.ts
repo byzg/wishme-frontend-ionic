@@ -1,8 +1,8 @@
 import { Component} from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-// import { Users } from '../../resourses/collections';
-// import { Wish } from '../../resourses/factories';
+import { Users } from '../../resourses/collections';
+// import { User } from '../../resourses/factories';
 
 @Component({
   templateUrl: 'users.html',
@@ -12,12 +12,9 @@ export class UsersPage {
 
   constructor(
     private nav: NavController,
-    // public users: Users
+    public users: Users
   ) {
-    // this.selectMode = new SelectMode();
-    // users.index().then(()=> {
-    //   this.selectMode.collection = users;
-    // });
+    users.index()
   }
 
   // openForm = (wish: Wish | null)=> {

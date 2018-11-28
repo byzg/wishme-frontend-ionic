@@ -18,7 +18,7 @@ import {
   ResponseHandler,
   ToastService,
 } from './services';
-import { Wishes } from './resourses/collections';
+import { Wishes, Users } from './resourses/collections';
 
 import { AppComponent } from './app.component';
 import { TPipe } from './pipes';
@@ -103,11 +103,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToastService,
 
     Wishes,
+    Users,
   ]
 })
 
 export class AppModule {
   constructor(private injector: Injector) {
     ServiceLocator.injector = this.injector;
+
+    // Pre-init collection singletons to create LF-tables
+    ServiceLocator.get(Wishes);
+    ServiceLocator.get(Users);
   }
 }

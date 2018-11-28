@@ -2,12 +2,16 @@
   <wsm-navbar></wsm-navbar>
 </ion-header>
 <ion-content class="animated fadeIn common-bg">
+  <wsm-spinner></wsm-spinner>
   <ion-list>
-    <ion-item>
+    <ion-item *ngFor="let user of users">
       <ion-avatar item-start>
-        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-buzz.png">
+        <avatar [name]="user.name"
+                [displayType]="'circle'"
+                size="40">
+        </avatar>
       </ion-avatar>
-      <h2>Андрей Решетов</h2>
+      <h2>{{user.name}}</h2>
       <p>8 желаний</p>
       <!--height: 3.6rem;-->
       <!--font-size: 1.8rem;-->

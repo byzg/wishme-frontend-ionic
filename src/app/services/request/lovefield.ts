@@ -5,6 +5,7 @@ import lf from 'lovefield';
 class LFHandler {
   schemaBuilder: lf.schema.Builder = lf.schema.create('wishme-db', 1);
   tables: {[key: string]: LFTable} = {};
+  private _connect: Promise<lf.Database>;
 
   createTable(name: string, attrs: Object): LFTable {
     if (this.tables[name]) return this.tables[name];
@@ -24,6 +25,12 @@ class LFHandler {
     return this.tables[pluralize(name)]
   }
 
+  get connect() {
+    if (this._connect) return this._connect;
+    this._connect = LF.schemaBuilder.connect();
+    return this._connect;
+  }
+
   protected mapType(attr: string, val: any) {
     if (typeof val === 'number')  return lf.Type.NUMBER;
     // All undefined fields are 'string' by default
@@ -33,11 +40,15 @@ class LFHandler {
 
 export class LFTable {
   table: lf.schema.Table;
-  connect: Promise<lf.Database>;
 
-  constructor(public name: string) {
-    this.connect = LF.schemaBuilder.connect();
-    this.connect.then(db=> this.table = db.getSchema().table(name))
+  constructor(public name: string) {}
+
+  get connect() {
+    return LF.connect.then(db=> {
+      if (!this.table)
+        this.table = db.getSchema().table(this.name);
+      return LF.connect
+    });
   }
 
   insertOrReplace(rowData) {
