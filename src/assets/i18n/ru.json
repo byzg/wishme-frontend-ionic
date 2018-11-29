@@ -25,6 +25,10 @@
         "text": "Подробности",
         "price": "Цена"
       }
+    },
+    "users": {
+      "wishesCount":
+        "{count, plural, =0{Нет} other{#}} желани{count, plural, one{е} few{я} other{й}}"
     }
   },
   "components": {

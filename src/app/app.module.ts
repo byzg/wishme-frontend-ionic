@@ -3,8 +3,13 @@ import { NgModule, Injector } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {
+  TranslateModule, TranslateLoader, TranslateCompiler
+} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {
+  TranslateMessageFormatCompiler
+} from 'ngx-translate-messageformat-compiler';
 import { AngularTokenModule } from 'angular-token';
 import { AvatarModule } from 'ng2-avatar';
 
@@ -83,6 +88,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
+      },
+      compiler: {
+        provide: TranslateCompiler,
+        useClass: TranslateMessageFormatCompiler
       }
     }),
     AngularTokenModule.forRoot({
