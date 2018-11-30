@@ -13,7 +13,7 @@
       </ion-avatar>
       <h2>{{user.name}}</h2>
       <p>
-        {{'pages.users.wishesCount' | translate:{ count: user.wishesCount } }}
+        {{'.wishesCount' | t:path:{ count: user.wishesCount } }}
       </p>
       <!--height: 3.6rem;-->
       <!--font-size: 1.8rem;-->

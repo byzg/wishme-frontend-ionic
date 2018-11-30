@@ -6,22 +6,15 @@ import { TranslateService, TranslatePipe } from '@ngx-translate/core';
   pure: false
 })
 export class TPipe implements PipeTransform {
-  private translated: string;
+  private translatePipe: TranslatePipe;
   constructor(
     private translateService: TranslateService,
-    // private _ref: ChangeDetectorRef
-  ) {}
-
-  transform(key: string, path: string) {
-    this.translateService.get(`${path}${key}`)
-      .subscribe((res: string) => this.translated = res );
-    return this.translated;
+    private _ref: ChangeDetectorRef
+  ) {
+    this.translatePipe = new TranslatePipe(this.translateService, this._ref)
   }
 
-  // transform(key: string, path: string) {
-  //   const translatePipe = new TranslatePipe(this.translateService, _ref)
-  //   // this.translateService.get(`${path}${key}`)
-  //   //   .subscribe((res: string) => this.translated = res );
-  //   return translatePipe.transform();
-  // }
+  transform(key: string, path: string, interpolateParams: Object) {
+    return this.translatePipe.transform(`${path}${key}`, interpolateParams);
+  }
 }
