@@ -4,7 +4,10 @@
 <ion-content class="animated fadeIn common-bg">
   <wsm-spinner></wsm-spinner>
   <ion-list>
-    <ion-item *ngFor="let user of users">
+    <ion-item
+      *ngFor="let user of users"
+      (click)="openUserWishes(user)"
+    >
       <ion-avatar item-start>
         <avatar [name]="user.name"
                 [displayType]="'circle'"
@@ -15,10 +18,10 @@
       <p>
         {{'.wishesCount' | t:path:{ count: user.wishesCount } }}
       </p>
-      <!--height: 3.6rem;-->
-      <!--font-size: 1.8rem;-->
-      <!--padding: 1.6rem-->
-      <button ion-button item-end>
+      <button
+        ion-button item-end
+        class="subscribe-button"
+      >
         <ion-icon name="person-add"></ion-icon>
       </button>
     </ion-item>

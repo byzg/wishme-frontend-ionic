@@ -1,8 +1,9 @@
 import { Component} from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+import { WishesPage } from '../'
 import { Users } from '../../resourses/collections';
-// import { User } from '../../resourses/factories';
+import { User } from '../../resourses/factories';
 
 @Component({
   templateUrl: 'users.html',
@@ -17,7 +18,7 @@ export class UsersPage {
     users.index()
   }
 
-  // openForm = (wish: Wish | null)=> {
-  //   this.nav.push(WishFormPage, { wish });
-  // }
+  openUserWishes(user: User) {
+    this.nav.push(WishesPage);
+  }
 }
