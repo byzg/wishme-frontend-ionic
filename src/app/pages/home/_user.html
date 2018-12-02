@@ -1,0 +1,16 @@
+<ion-item>
+  <ion-avatar item-start>
+    <avatar [name]="session.user.name"
+            [displayType]="'circle'"
+            size="68">
+    </avatar>
+  </ion-avatar>
+  <h2 ion-text class="no-margin bold">{{session.user.name}}</h2>
+  <p>
+    {{'.wishesCount' | t:path:{ count: session.user.wishesCount } }}
+  </p>
+  <button ion-button full icon-start>
+    <ion-icon name="person-add"></ion-icon>
+    {{ '.subscribe' | t:path }}
+  </button>
+</ion-item>

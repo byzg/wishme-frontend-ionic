@@ -15,13 +15,12 @@ export class User extends BaseFactory {
   email: string;
   password: string;
   errors: string[] = [];
-  wishes_count: number;
+  wishesCount: number;
   protected initAttrs() {
     this._attrs = {
       name: '',
       email: '',
       password: '',
-      avatar: '',
       wishesCount: null,
     };
   };

@@ -4,7 +4,7 @@ import { NavParams, NavController } from 'ionic-angular';
 import { WishForm } from '../../forms';
 import { Wishes } from '../../resourses/collections';
 import { Wish } from '../../resourses/factories';
-import { WishesPage } from './wishes';
+import { HomePage } from '../home';
 
 @Component({
   templateUrl: 'form.html'
@@ -19,7 +19,7 @@ export class WishFormPage {
       handler: ()=> {
         this.skipOnBack = true;
         this.wishForm.save().then(()=>
-          this.nav.setRoot(WishesPage)
+          this.nav.setRoot(HomePage)
         );
       }
     }

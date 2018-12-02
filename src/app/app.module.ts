@@ -30,8 +30,10 @@ import { TPipe } from './pipes';
 import {
   LoginPage,
   RegisterPage,
-  WishesPage,
+  HomePage,
+  HomeUserPartial,
   WishFormPage,
+  WishesPartial,
   WishPartial,
   UsersPage,
 } from './pages';
@@ -53,8 +55,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     TPipe,
     LoginPage,
     RegisterPage,
-    WishesPage,
+    HomePage,
+    HomeUserPartial,
     WishFormPage,
+    WishesPartial,
     WishPartial,
     UsersPage,
 
@@ -67,8 +71,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     LoginPage,
     RegisterPage,
-    WishesPage,
+    HomePage,
+    HomeUserPartial,
     WishFormPage,
+    WishesPartial,
     UsersPage,
   ],
   imports: [

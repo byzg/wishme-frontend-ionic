@@ -3,7 +3,7 @@ import { NavController, MenuController } from 'ionic-angular';
 
 import { SessionForm } from '../../forms';
 import { Session, ToastService } from '../../services';
-import { WishesPage } from '../wishes/wishes';
+import { HomePage } from '../home';
 import { RegisterPage } from '../register/register';
 
 @Component({
@@ -27,7 +27,7 @@ export class LoginPage {
   login() {
     this.sessionForm.save()
       .then(() => {
-        this.nav.setRoot(WishesPage)
+        this.nav.setRoot(HomePage)
       })
       .catch(()=> {
         this.toastService.modelError(this.session)

@@ -6,7 +6,7 @@
   <ion-list>
     <ion-item
       *ngFor="let user of users"
-      (click)="openUserWishes(user)"
+      (click)="openUserHome(user)"
     >
       <ion-avatar item-start>
         <avatar [name]="user.name"

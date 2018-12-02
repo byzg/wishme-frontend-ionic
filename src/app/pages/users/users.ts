@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { WishesPage } from '../'
+import { HomePage } from '../home'
 import { Users } from '../../resourses/collections';
 import { User } from '../../resourses/factories';
 
@@ -18,7 +18,7 @@ export class UsersPage {
     users.index()
   }
 
-  openUserWishes(user: User) {
-    this.nav.push(WishesPage);
+  openUserHome(user: User) {
+    this.nav.push(HomePage);
   }
 }

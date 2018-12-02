@@ -1,16 +1,14 @@
 import { Component} from '@angular/core';
-import { NavController } from 'ionic-angular';
 
-import { WishFormPage } from './form';
 import { SelectMode } from '../../services';
 import { Wishes } from '../../resourses/collections';
 import { Wish } from '../../resourses/factories';
 
 @Component({
-  templateUrl: 'wishes.html',
+  templateUrl: 'home.html',
 })
-export class WishesPage {
-  path = 'pages.wishes';
+export class HomePage {
+  path = 'pages.home';
   selectMode: SelectMode;
   navbarActions = [
     {
@@ -25,17 +23,11 @@ export class WishesPage {
   ];
 
   constructor(
-    private nav: NavController,
-    public wishes: Wishes
+    public wishes: Wishes,
   ) {
     this.selectMode = new SelectMode();
     wishes.index().then(()=> {
       this.selectMode.collection = wishes;
     });
-
-  }
-
-  openForm = (wish: Wish | null)=> {
-    this.nav.push(WishFormPage, { wish });
   }
 }

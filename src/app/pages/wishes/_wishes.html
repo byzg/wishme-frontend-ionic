@@ -1,0 +1,9 @@
+<div>
+  <h2 *ngIf="wishes.isEmpty" padding>{{'.noWishes' | t:path}}</h2>
+  <wsm-wish *ngFor="let wish of wishes"
+            [wish]="wish"
+            [selectMode]="selectMode"
+            [openForm]="openForm"
+            oncontextmenu="return false"
+  ></wsm-wish>
+</div>

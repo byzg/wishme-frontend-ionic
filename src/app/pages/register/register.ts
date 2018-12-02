@@ -6,7 +6,7 @@ import { User } from '../../resourses/factories';
 import { ToastService, Session } from '../../services';
 import { BaseCollection } from '../../resourses/collections';
 import { LoginPage } from '../login/login';
-import { WishesPage } from '../wishes/wishes';
+import { HomePage } from '../home';
 
 @Component({
   templateUrl: 'register.html'
@@ -29,7 +29,7 @@ export class RegisterPage {
     this.registerForm.save()
       .then((user: User) => {
         this.session.resetUser(user);
-        this.nav.setRoot(WishesPage)
+        this.nav.setRoot(HomePage)
       })
       .catch(()=> {
         this.toastService.modelError(this.user)

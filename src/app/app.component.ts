@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AngularTokenService } from 'angular-token';
 
 import { BackManager } from './services';
-import { LoginPage, WishesPage } from './pages';
+import { LoginPage, HomePage } from './pages';
 
 @Component({
   templateUrl: 'app.component.html'
@@ -27,7 +27,7 @@ export class AppComponent {
 
   initializeApp() {
     this.rootPage = this.tokenService.userSignedIn() ?
-      WishesPage : LoginPage;
+      HomePage : LoginPage;
 
     this.translate.setDefaultLang('ru');
     this.translate.use('ru');
