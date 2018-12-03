@@ -18,9 +18,9 @@ export class Requester {
     this.offline = new OfflineRequester(name);
   }
 
-  index(): Promise<RecordableObject[]> {
+  index(params = {}): Promise<RecordableObject[]> {
     if (navigator.onLine)
-      return this.online.index()
+      return this.online.index(params)
         .then((list: RecordableObject[]) => {
           _(list).each((item: RecordableObject) => {
             this.offline.table.insertOrReplace(item)
@@ -28,7 +28,7 @@ export class Requester {
           return list;
         });
     else
-      return this.offline.index()
+      return this.offline.index(params)
   }
 
   create(attrs: Object): Promise<RecordableObject> {

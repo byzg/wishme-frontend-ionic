@@ -11,6 +11,7 @@ import { Wish } from '../../resourses/factories';
   templateUrl: '_wishes.html',
 })
 export class WishesPartial {
+  path = 'pages.wishes';
   @Input() wishes: Wishes;
   @Input() selectMode: SelectMode;
 

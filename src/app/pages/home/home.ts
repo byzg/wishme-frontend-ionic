@@ -1,8 +1,9 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { NavParams } from 'ionic-angular';
 
-import { SelectMode } from '../../services';
+import { SelectMode, Session } from '../../services';
 import { Wishes } from '../../resourses/collections';
-import { Wish } from '../../resourses/factories';
+import { Wish, User } from '../../resourses/factories';
 
 @Component({
   templateUrl: 'home.html',
@@ -10,6 +11,7 @@ import { Wish } from '../../resourses/factories';
 export class HomePage {
   path = 'pages.home';
   selectMode: SelectMode;
+  user: User;
   navbarActions = [
     {
       name: 'trash',
@@ -24,10 +26,14 @@ export class HomePage {
 
   constructor(
     public wishes: Wishes,
+    private navParams: NavParams,
+    private session: Session
   ) {
+    this.user = this.navParams.get('user') || session.user;
     this.selectMode = new SelectMode();
-    wishes.index().then(()=> {
-      this.selectMode.collection = wishes;
-    });
+    this.wishes.index({ userId: parseInt(this.user.id) })
+      .then(()=> {
+        this.selectMode.collection = wishes;
+      });
   }
 }

@@ -13,8 +13,8 @@ export class OfflineRequester {
     return new Date().toISOString();
   };
 
-  index(): Promise<RecordableObject[]> {
-    return this.table.select()
+  index(params = {}): Promise<RecordableObject[]> {
+    return this.table.select(params)
   }
 
   create(attrs: RecordableObject): Promise<RecordableObject> {

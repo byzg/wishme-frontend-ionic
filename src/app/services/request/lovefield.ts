@@ -70,9 +70,12 @@ export class LFTable {
     });
   }
 
-  select() {
+  select(params = {}) {
     return this.connect.then(db => {
-      return db.select().from(this.table).exec()
+      const search =_.map(params, (val, attr)=> this.table[attr].eq(val));
+      let qwery = db.select().from(this.table);
+      if (search.length) qwery = qwery.where(...search);
+      return qwery.exec();
     });
   }
 

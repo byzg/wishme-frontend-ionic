@@ -1,6 +1,6 @@
-import { Component} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { Session } from '../../services';
+import { User } from '../../resourses/factories/user';
 
 @Component({
   selector: 'wsm-home-user',
@@ -8,6 +8,5 @@ import { Session } from '../../services';
 })
 export class HomeUserPartial {
   path = 'pages.home.user';
-
-  constructor(public session: Session) {}
+  @Input() user: User;
 }

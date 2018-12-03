@@ -36,8 +36,8 @@ export class RestClient {
     };
   }
 
-  index() {
-    return this.action('index');
+  index(params = {}) {
+    return this.action('index', params);
   }
 
   show(id) {

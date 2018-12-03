@@ -19,6 +19,6 @@ export class UsersPage {
   }
 
   openUserHome(user: User) {
-    this.nav.push(HomePage);
+    this.nav.push(HomePage, { user });
   }
 }

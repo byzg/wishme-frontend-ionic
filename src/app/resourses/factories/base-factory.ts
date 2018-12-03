@@ -64,7 +64,7 @@ export class BaseFactory implements RecordableObject {
   protected initAttrs() {}
 
   protected setupAttrs(data: Object): void {
-    // NOTE: destructuring and lodash extend is not same
+    // NOTE: destructuring is not the same lodash.extend
     // see a = {foo: 2}; b = {bar: 3}; c = _.extend(a, b); a.foo = 8; c.foo;
     _.extend(this._attrs, this.commonAttrs());
     this._schema = { ...this._attrs };

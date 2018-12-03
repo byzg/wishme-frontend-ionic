@@ -19,8 +19,9 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     Object.setPrototypeOf(this, BaseCollection.prototype);
   }
 
-  index(): Promise<any> {
-    return this.requester.index().then((rawData) => {
+  index(params = {}): Promise<any> {
+    this.length = 0;
+    return this.requester.index(params).then((rawData) => {
       this.mergeAll(rawData);
       this.loaded = true;
     });
