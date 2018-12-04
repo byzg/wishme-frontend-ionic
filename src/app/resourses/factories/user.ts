@@ -1,6 +1,7 @@
 import { AngularTokenService } from 'angular-token';
 
 import { BaseFactory } from './base-factory';
+import { Relations, Wishes } from '../collections';
 import { ServiceLocator, ResponseHandler } from '../../services';
 
 export interface ReasonError {
@@ -11,6 +12,8 @@ export interface ReasonError {
 
 export class User extends BaseFactory {
   protected readonly _name = 'user';
+  wishes: Relations;
+
   name: string;
   email: string;
   password: string;
@@ -30,6 +33,11 @@ export class User extends BaseFactory {
   private responseHandler: ResponseHandler
     = ServiceLocator.get(ResponseHandler);
 
+  constructor(data) {
+    super(data);
+    this.hasMany(Wishes);
+  }
+
   create(): Promise<User> {
     return this.responseHandler.wrap(()=> (
       this.tokenService.registerAccount(this.toServerAttrs)
@@ -42,7 +50,7 @@ export class User extends BaseFactory {
     });
   }
 
-  get toServerAttrs() {
+  protected get toServerAttrs() {
     const { name, email, password } = <User>this.attrs;
     return { name, login: email, password, passwordConfirmation: password };
   }

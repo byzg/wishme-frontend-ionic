@@ -1,11 +1,13 @@
 import * as _ from 'lodash';
 
-import { Requester, RecordableObject } from '../../services';
+import { Requester, RecordableObject, ServiceLocator } from '../../services';
+import { BaseCollection, Relations } from '../collections';
 
 export class BaseFactory implements RecordableObject {
   protected readonly _name: string;
   protected _attrs: Object = {};
   protected _schema: Object = {};
+  protected _relations: Object = {};
   id: string;
   updatedAt: string;
   deletedAt: string;
@@ -76,6 +78,21 @@ export class BaseFactory implements RecordableObject {
         get: ()=> this.attrs[attr],
         set: (val)=> this._attrs[attr] = val
       })
+    })
+  }
+
+  protected hasMany(CollectionClass): void {
+    const collection = ServiceLocator.get(CollectionClass);
+    const name: string = collection.className;
+    if (this._relations[name])
+      throw `Already hasMany ${name} for ${this._name}`;
+    const q = { userId: parseInt(this.id) };
+    Object.defineProperty(this, name, {
+      get: ()=> {
+        if (this._relations[name]) return this._relations[name];
+        this._relations[name] = new Relations(collection, q);
+        return this._relations[name];
+      }
     })
   }
 }

@@ -20,7 +20,7 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   }
 
   index(params = {}): Promise<any> {
-    this.length = 0;
+    // this.length = 0;
     return this.requester.index(params).then((rawData) => {
       this.mergeAll(rawData);
       this.loaded = true;
@@ -59,6 +59,10 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
       this.length = 0;
       this.mergeAll(list);
     })
+  }
+
+  get className(): string {
+    return this._name;
   }
 
   get isEmpty(): boolean {

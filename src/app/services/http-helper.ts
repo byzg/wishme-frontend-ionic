@@ -43,9 +43,7 @@ class Request {
   }
 
   private searches(searches?: Object): string {
-    return searches ? `?${qs.stringify(
-      _.mapValues(humps.decamelizeKeys(searches), val => JSON.stringify(val))
-    )}` : '';
+    return searches ? `?${qs.stringify(humps.decamelizeKeys(searches))}` : '';
   }
 }
 

@@ -31,9 +31,9 @@ export class HomePage {
   ) {
     this.user = this.navParams.get('user') || session.user;
     this.selectMode = new SelectMode();
-    this.wishes.index({ userId: parseInt(this.user.id) })
-      .then(()=> {
-        this.selectMode.collection = wishes;
-      });
+
+    this.user.wishes.exec().then(()=> {
+      this.selectMode.collection = this.user.wishes
+    })
   }
 }
