@@ -13,7 +13,7 @@ export class WishPartial {
   @Input() openForm: Function;
 
   handleClick() {
-    if (this.selectMode.enabled)
+    if (this.selectMode.isActive)
       this.selectMode.toggle(this.wish)
     else
       this.openForm(this.wish);

@@ -4,13 +4,22 @@ interface SelectModeItem {
 
 export class SelectMode {
   private mapping = {};
+  private _enabled = true;
   public collection: Array<SelectModeItem>;
 
-  get enabled(): boolean {
-    return this.collection &&
+  get isActive() {
+    return this.enabled && this.collection &&
       this.collection.some((item: SelectModeItem)=> {
         return this.isSelected(item);
       });
+  }
+
+  get enabled(): boolean {
+    return this._enabled
+  }
+
+  set enabled(val: boolean) {
+    this._enabled = val;
   }
 
   isSelected(item: SelectModeItem) {
@@ -18,6 +27,6 @@ export class SelectMode {
   }
 
   toggle(item: SelectModeItem) {
-    this.mapping[item.id] = !this.mapping[item.id]
+    if (this.enabled) this.mapping[item.id] = !this.mapping[item.id];
   };
 }

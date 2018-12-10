@@ -6,5 +6,9 @@ wsm-wish {
     &.selected {
       background: transparentize(color($colors, dark), 0.6);
     }
+
+    ion-card-content {
+      white-space: pre-wrap;
+    }
   };
 }

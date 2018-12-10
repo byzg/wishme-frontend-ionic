@@ -12,6 +12,7 @@ import {
 } from 'ngx-translate-messageformat-compiler';
 import { AngularTokenModule } from 'angular-token';
 import { AvatarModule } from 'ng2-avatar';
+import { ElasticModule } from 'angular2-elastic';
 
 import { environment } from '../environments/environment';
 import {
@@ -105,6 +106,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       registerAccountPath:        'auth',
     }),
     AvatarModule.forRoot(),
+    ElasticModule,
   ],
   bootstrap: [IonicApp],
   providers: [

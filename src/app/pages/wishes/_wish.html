@@ -1,5 +1,5 @@
-<ion-card (click)="handleClick()"
-          (press)="selectMode.toggle(wish)"
+<ion-card (press)="selectMode.toggle(wish)"
+          (click)="handleClick()"
           [ngClass]="{ 'selected': selectMode.isSelected(wish) }"
 >
   <ion-card-header *ngIf="wish.title">

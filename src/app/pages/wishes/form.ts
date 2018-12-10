@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
 
 import { WishForm } from '../../forms';

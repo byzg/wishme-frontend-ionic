@@ -3,6 +3,15 @@
 </ion-header>
 <ion-content class="animated fadeIn common-bg">
   <wsm-spinner></wsm-spinner>
+  <ion-fab bottom right (click)="openWishForm()" *ngIf="isCurrentUser">
+    <button ion-fab color="light" >
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
   <wsm-home-user [user]="user"></wsm-home-user>
-  <wsm-wishes [wishes]="user.wishes" [selectMode]="selectMode"></wsm-wishes>
+  <wsm-wishes
+    [wishes]="user.wishes"
+    [selectMode]="selectMode"
+    [openForm]="openWishForm"
+  ></wsm-wishes>
 </ion-content>

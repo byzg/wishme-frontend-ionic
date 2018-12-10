@@ -8,4 +8,8 @@
   input[formcontrolname='price'] {
     font-weight: bold;
   }
+  textarea[formcontrolname] {
+    max-height: 40vh;
+    overflow-y: auto !important;
+  }
 }

@@ -12,7 +12,7 @@ export interface ReasonError {
 
 export class User extends BaseFactory {
   protected readonly _name = 'user';
-  wishes: Relations;
+  wishes: Relations<User>;
 
   name: string;
   email: string;
@@ -33,7 +33,7 @@ export class User extends BaseFactory {
   private responseHandler: ResponseHandler
     = ServiceLocator.get(ResponseHandler);
 
-  constructor(data) {
+  constructor(data = {}) {
     super(data);
     this.hasMany(Wishes);
   }
