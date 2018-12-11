@@ -38,7 +38,8 @@ export class User extends BaseFactory {
     this.hasMany(Wishes);
   }
 
-  create(): Promise<User> {
+  create(attrs: Object): Promise<User> {
+    this.setAttrs(attrs);
     return this.responseHandler.wrap(()=> (
       this.tokenService.registerAccount(this.toServerAttrs)
     )).then(({ data: attrs }) => {

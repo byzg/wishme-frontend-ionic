@@ -33,7 +33,7 @@ export class HomePage {
     private session: Session
   ) {
     this.user = this.navParams.get('user') || session.user;
-    this.isCurrentUser = this.user === session.user;
+    this.isCurrentUser = this.user === session.user || true;
     this.selectMode = new SelectMode();
     this.selectMode.enabled = this.isCurrentUser;
 

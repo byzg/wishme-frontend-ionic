@@ -13,7 +13,6 @@ import { LoginPage, HomePage } from './pages';
 export class AppComponent {
   @ViewChild(Nav) nav: Nav;
   @ViewChild(ViewController) view: ViewController;
-  rootPage: any;
 
   constructor(
     private backManager: BackManager,
@@ -26,15 +25,16 @@ export class AppComponent {
   }
 
   initializeApp() {
-    this.rootPage = this.tokenService.userSignedIn() ?
-      HomePage : LoginPage;
-
     this.translate.setDefaultLang('ru');
     this.translate.use('ru');
     this.platform.ready().then(() => {
       this.backManager.setupBackButtonBehavior (this.ionicApp);
     });
 
+  }
+
+  rootPage() {
+    return this.tokenService.userSignedIn() ? HomePage : LoginPage;
   }
 
   openPage(page) {

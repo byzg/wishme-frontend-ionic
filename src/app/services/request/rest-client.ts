@@ -2,7 +2,9 @@ import * as pluralize from 'pluralize';
 import * as _ from 'lodash';
 
 import { ServiceLocator } from '../service-locator';
+import { Session } from '../session';
 import { HttpHelper } from '../http-helper';
+import {HttpErrorResponse} from "@angular/common/http";
 
 interface IUrlMap {
   index: () => string
@@ -23,6 +25,7 @@ export class RestClient {
 
   public urlMap: IUrlMap;
   private httpClient: HttpHelper = ServiceLocator.injector.get(HttpHelper);
+  private session: Session = ServiceLocator.injector.get(Session);
   private plural: string;
 
   constructor(public resourceName: string) {
@@ -59,6 +62,13 @@ export class RestClient {
   private action(actionName: string, attributes?): Promise<any> {
     const url = this.urlMap[actionName](attributes && attributes.id);
     const actionType = RestClient.actionTypeMap[actionName];
-    return this.httpClient[actionType](url, _.omit(attributes, 'id'));
+    const request = this.httpClient[actionType](url, _.omit(attributes, 'id'));
+    return request.catch((httpErrorResponse: HttpErrorResponse) => {
+      if (httpErrorResponse.status == 401) {
+        this.session.destroy();
+      }
+      // don't 'return request' here without .catch above by stack
+      // to avoid some error in polyfill.js
+    })
   }
 }

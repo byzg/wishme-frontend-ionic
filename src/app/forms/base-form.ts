@@ -28,8 +28,7 @@ export abstract class BaseForm implements IBaseForm {
 
   save(): Promise<Object> {
     if (!this.isChanged) return Promise.resolve(this.model);
-    this.model.setAttrs(this.group.value);
-    const promise = this.model.save();
+    const promise = this.model.save(this.group.value);
     if (this.model.isNew()) {
       return promise.then(() => {
         this.collection.push(this.model);

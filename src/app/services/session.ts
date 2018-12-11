@@ -21,7 +21,8 @@ export class Session extends BaseFactory{
     super()
   }
 
-  create(): Promise<Session> {
+  create(attrs: { user: Object }): Promise<Session> {
+    this.setAttrs(attrs);
     return this.responseHandler.wrap(()=> (
       this.tokenService.signIn(this.toServerAttrs)
     )).then(({ body: { data: user }}) => {
