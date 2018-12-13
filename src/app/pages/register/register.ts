@@ -32,7 +32,7 @@ export class RegisterPage {
         this.nav.setRoot(HomePage)
       })
       .catch(()=> {
-        this.toastService.modelError(this.user)
+        this.toastService.showModelError(this.user)
       })
   }
 

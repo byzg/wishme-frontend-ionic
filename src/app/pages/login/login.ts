@@ -30,7 +30,7 @@ export class LoginPage {
         this.nav.setRoot(HomePage)
       })
       .catch(()=> {
-        this.toastService.modelError(this.session)
+        this.toastService.showModelError(this.session)
       })
   }
 

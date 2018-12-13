@@ -42,6 +42,10 @@ export class HomePage {
     })
   }
 
+  ionViewDidEnter(){
+
+  }
+
   openWishForm = (wish: Wish | null)=> {
     this.isCurrentUser && this.nav.push(WishFormPage, { wish });
   }

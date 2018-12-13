@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 
 import { ServiceLocator } from '../service-locator';
 import { Session } from '../session';
+import { ToastService } from '../toast-service';
 import { HttpHelper } from '../http-helper';
 import {HttpErrorResponse} from "@angular/common/http";
 
@@ -26,6 +27,7 @@ export class RestClient {
   public urlMap: IUrlMap;
   private httpClient: HttpHelper = ServiceLocator.injector.get(HttpHelper);
   private session: Session = ServiceLocator.injector.get(Session);
+  private toastService: ToastService = ServiceLocator.injector.get(ToastService);
   private plural: string;
 
   constructor(public resourceName: string) {
@@ -64,11 +66,11 @@ export class RestClient {
     const actionType = RestClient.actionTypeMap[actionName];
     const request = this.httpClient[actionType](url, _.omit(attributes, 'id'));
     return request.catch((httpErrorResponse: HttpErrorResponse) => {
+      this.toastService.showHttpError(httpErrorResponse.status);
       if (httpErrorResponse.status == 401) {
         this.session.destroy();
       }
-      // don't 'return request' here without .catch above by stack
-      // to avoid some error in polyfill.js
+      return Promise.reject(httpErrorResponse.message)
     })
   }
 }

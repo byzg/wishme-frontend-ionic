@@ -22,12 +22,13 @@ export class BaseFactory implements RecordableObject {
   }
 
   create(attrs: Object = {}): Promise<Object> {
+    this.setAttrs(attrs);
     return this.requester.create(this.attrs);
 
   }
 
   update(attrs: Object): Promise<Object> {
-    return this.requester.update(attrs);
+    return this.requester.update({ ...attrs, id: this.id });
   }
 
   save(attrs: Object = {}): Promise<Object> {
