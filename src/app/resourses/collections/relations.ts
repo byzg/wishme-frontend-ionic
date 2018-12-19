@@ -9,14 +9,15 @@ export class Relations<T extends BaseFactory> extends Array<T> {
     super();
     Object.assign(this, Relations.prototype);
     Object.setPrototypeOf(this, parent);
+    this.parent.subscribe(()=> {
+      const found = this.parent.where(q);
+      this.length = found.length;
+      Object.assign(this, found);
+    })
   }
 
   exec(): Promise<any> {
     const { q } = this;
-    const promise = this.parent.index({ q });
-    promise.then(()=> {
-      Object.assign(this, this.parent.where(q))
-    });
-    return promise;
+    return this.parent.index({ q });
   }
 }
