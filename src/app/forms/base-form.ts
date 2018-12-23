@@ -2,6 +2,7 @@ import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import _ from 'lodash';
 
 import { BaseFactory } from '../resourses/factories/base-factory';
+import { BaseCollection } from '../resourses/collections/base-collection';
 
 export interface IBaseForm {
   group: FormGroup;
@@ -16,7 +17,7 @@ export abstract class BaseForm implements IBaseForm {
 
   constructor(
     protected model: BaseFactory,
-    protected collection = []
+    protected collection: (BaseCollection<BaseFactory> | null) = null
   ) {
     this.buildGroup();
     this._initVals = _.clone(this.group.value);
@@ -28,14 +29,11 @@ export abstract class BaseForm implements IBaseForm {
 
   save(): Promise<Object> {
     if (!this.isChanged) return Promise.resolve(this.model);
-    const promise = this.model.save(this.group.value);
-    if (this.model.isNew()) {
-      return promise.then(() => {
-        this.collection.push(this.model);
-        return this.model;
-      });
+    if (this.model.isNew() && this.collection) {
+      return this.collection.create(this.group.value)
+    } else {
+      return this.model.save(this.group.value)
     }
-    return promise;
   }
 
   get isNew(): boolean {

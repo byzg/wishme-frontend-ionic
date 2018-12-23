@@ -9,7 +9,7 @@ import { LF, Requester, RecordableObject } from '../../services';
 export class BaseCollection<T extends BaseFactory> extends Array<T> {
   protected _name: string;
   protected readonly Factory: new (rawDatum?: Object) => BaseFactory;
-  protected _emitter = new BehaviorSubject();
+  protected _emitter = new BehaviorSubject(null);
   loaded = false;
 
   constructor() {
@@ -22,12 +22,21 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   }
 
   index(params = {}): Promise<any> {
-    // this.length = 0;
     return this.requester.index(params).then((rawData) => {
       this.mergeAll(rawData);
-      this._emitter.next();
+      this.emit();
       this.loaded = true;
     });
+  }
+
+  create(attrs) {
+    const resource: T = <T>new this.Factory(attrs);
+    return resource.save(attrs)
+      .then((model: T)=> {
+        this.push(model);
+        this.emit();
+        return model;
+      })
   }
 
   where(condition) {
@@ -54,7 +63,7 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
   destroy(item: T): Promise<any> {
     return this.requester.destroy(item.id).then(()=> {
       this.splice(this.indexOf(item), 1);
-      this._emitter.next();
+      this.emit();
     });
   }
 
@@ -63,6 +72,10 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
       this.length = 0;
       this.mergeAll(list);
     })
+  }
+
+  emit() {
+    this._emitter.next(null);
   }
 
   subscribe(callback) {
