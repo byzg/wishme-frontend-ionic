@@ -11,7 +11,7 @@ export class Users extends BaseCollection<User> {
 
   constructor() {
     super();
-    Object.setPrototypeOf(this, Users.prototype);
+    Object.setPrototypeOf(this, new.target.prototype);
     this.createTable();
   }
 }

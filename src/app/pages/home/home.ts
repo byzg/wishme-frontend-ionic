@@ -18,8 +18,9 @@ export class HomePage {
     {
       name: 'trash',
       handler: ()=> {
-        this.wishes.forEach((wish: Wish)=> {
-          if (this.selectMode.isSelected(wish)) this.wishes.destroy(wish)
+        this.user.wishes.forEach((wish: Wish)=> {
+          if (this.selectMode.isSelected(wish))
+            this.wishesCollection.destroy(wish);
         })
       },
       isShown: ()=> this.selectMode.isActive
@@ -29,7 +30,7 @@ export class HomePage {
   constructor(
     private navParams: NavParams,
     private nav: NavController,
-    public wishes: Wishes,
+    private wishesCollection: Wishes,
     private session: Session
   ) {
     this.user = this.navParams.get('user') || session.user;

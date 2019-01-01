@@ -27,7 +27,8 @@ export class RestClient {
   public urlMap: IUrlMap;
   private httpClient: HttpHelper = ServiceLocator.injector.get(HttpHelper);
   private session: Session = ServiceLocator.injector.get(Session);
-  private toastService: ToastService = ServiceLocator.injector.get(ToastService);
+  private toastService: ToastService =
+    ServiceLocator.injector.get(ToastService);
   private plural: string;
 
   constructor(public resourceName: string) {

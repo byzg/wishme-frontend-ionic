@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class ToastService {
-  private HTTP_ERROR_MESSAGES = {
-    401: 'Сессия недействительна',
-    403: 'Действие запрещено',
-  };
 
-  constructor(private toastCtrl: ToastController) {}
+  constructor(
+    private toastCtrl: ToastController,
+    private translate: TranslateService
+  ) {}
 
   showModelError(model) {
     this.toastCtrl.create({
@@ -20,11 +20,15 @@ export class ToastService {
   }
 
   showHttpError(code) {
-    this.toastCtrl.create({
-      showCloseButton: true,
-      message: this.HTTP_ERROR_MESSAGES[code] || 'Что-то пошло не так',
-      position: 'bottom',
-      duration: 7000
-    }).present();
+    this.translate
+      .get(`services.toastService.httpErrors.${code}`)
+      .subscribe(message => {
+        this.toastCtrl.create({
+          showCloseButton: true,
+          message,
+          position: 'bottom',
+          duration: 7000
+        }).present();
+      });
   }
 }

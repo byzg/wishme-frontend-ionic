@@ -6,7 +6,6 @@ import { ResponseHandler } from './request/response-handler';
 import { User } from '../resourses/factories';
 import { BaseFactory } from '../resourses/factories/base-factory';
 
-
 @Injectable()
 export class Session extends BaseFactory{
   user: User;

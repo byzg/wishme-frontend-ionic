@@ -7,7 +7,7 @@
   </ion-avatar>
   <h2 ion-text class="no-margin bold">{{user.name}}</h2>
   <p>
-    {{'.wishesCount' | t:path:{ count: user.wishesCount } }}
+    {{'.wishesCount' | t:path:{ count: user.wishes.length } }}
   </p>
   <button ion-button full icon-start>
     <ion-icon name="person-add"></ion-icon>

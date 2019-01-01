@@ -18,7 +18,7 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
     // re-invoking the constructor. Keep this in mind if the constructor
     // code affects the entire application.
     // For example, creates tables in IndexedDB
-    Object.setPrototypeOf(this, BaseCollection.prototype);
+    Object.setPrototypeOf(this, new.target.prototype);
   }
 
   index(params = {}): Promise<any> {
@@ -62,7 +62,9 @@ export class BaseCollection<T extends BaseFactory> extends Array<T> {
 
   destroy(item: T): Promise<any> {
     return this.requester.destroy(item.id).then(()=> {
-      this.splice(this.indexOf(item), 1);
+      delete this[this.indexOf(item)];
+      Object.assign(this, _.compact(this));
+      this.pop();
       this.emit();
     });
   }

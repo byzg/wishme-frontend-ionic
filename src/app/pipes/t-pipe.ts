@@ -14,7 +14,7 @@ export class TPipe implements PipeTransform {
     this.translatePipe = new TranslatePipe(this.translateService, this._ref)
   }
 
-  transform(key: string, path: string, interpolateParams: Object) {
+  transform(key: string, path: string, interpolateParams: Object = {}) {
     return this.translatePipe.transform(`${path}${key}`, interpolateParams);
   }
 }

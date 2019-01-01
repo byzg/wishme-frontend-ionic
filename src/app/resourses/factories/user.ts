@@ -1,6 +1,7 @@
 import { AngularTokenService } from 'angular-token';
 
 import { BaseFactory } from './base-factory';
+import { Wish } from './wish';
 import { Relations, Wishes } from '../collections';
 import { ServiceLocator, ResponseHandler } from '../../services';
 
@@ -12,7 +13,7 @@ export interface ReasonError {
 
 export class User extends BaseFactory {
   protected readonly _name = 'user';
-  wishes: Relations<User>;
+  wishes;
 
   name: string;
   email: string;
